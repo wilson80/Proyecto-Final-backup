@@ -37,7 +37,7 @@
                     
                     <archive>
                         <manifest>
-                            <mainClass>com.wchay.proyecto2.backend.Main</mainClass>
+                            <mainClass>com.wchay.proyecto2.backend.inicio_juego.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -49,7 +49,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.wchay.proyecto2.backend.Main</mainClass>
+                            <mainClass>com.wchay.proyecto2.backend.inicio_juego.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

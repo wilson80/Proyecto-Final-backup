@@ -1,9 +1,11 @@
 
 package com.wchay.proyecto2.ui;
 
-import java.io.Serializable;
+import com.wchay.proyecto2.backend.inicio_juego.AccionesConfiguraciones;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class VentanaPrincipal extends javax.swing.JFrame  {
     
@@ -16,6 +18,9 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         añadir = new AccionesConfiguraciones(this);
         panelTurnoJugador.setVisible(false);
         panelMapa.setVisible(false);
+        TextAreaMensajes.setEnabled(false);
+        TextAreaMensajes.setVisible(false);
+        ScrollPaneAreaMensajes.setVisible(false);
         añadirAcciones();
         
     }
@@ -34,7 +39,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         panelTurnoJugador = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelMapa = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        ScrollPaneAreaMensajes = new javax.swing.JScrollPane();
         TextAreaMensajes = new javax.swing.JTextArea();
         pruebaTextArea = new javax.swing.JButton();
         fondoInicio = new javax.swing.JLabel();
@@ -179,15 +184,15 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
 
         getContentPane().add(panelMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1470, 540));
 
-        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 153), 2, true));
+        ScrollPaneAreaMensajes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 153), 2, true));
 
         TextAreaMensajes.setBackground(new java.awt.Color(0, 0, 51));
         TextAreaMensajes.setColumns(20);
         TextAreaMensajes.setForeground(new java.awt.Color(255, 255, 255));
         TextAreaMensajes.setRows(5);
-        jScrollPane1.setViewportView(TextAreaMensajes);
+        ScrollPaneAreaMensajes.setViewportView(TextAreaMensajes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 930, 130));
+        getContentPane().add(ScrollPaneAreaMensajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 930, 130));
 
         pruebaTextArea.setText("jButton1");
         pruebaTextArea.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +200,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
                 pruebaTextAreaActionPerformed(evt);
             }
         });
-        getContentPane().add(pruebaTextArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 640, 130, 60));
+        getContentPane().add(pruebaTextArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 640, 130, 60));
 
         fondoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondos/fondoPrincipal.png"))); // NOI18N
         getContentPane().add(fondoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 770));
@@ -250,9 +255,8 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     }//GEN-LAST:event_botonFinalizarPartidaActionPerformed
 
     private void pruebaTextAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pruebaTextAreaActionPerformed
-        TextAreaMensajes.setEnabled(false);
-        
-        
+//        TextAreaMensajes.setEnabled(false);
+        TextAreaMensajes.setText("Wilson Chay");
     }//GEN-LAST:event_pruebaTextAreaActionPerformed
 
     public JPanel getPanelMapa() {
@@ -271,9 +275,18 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         return añadir;
     }
 
+    public JTextArea getTextAreaMensajes() {
+        return TextAreaMensajes;
+    }
+
+    public JScrollPane getScrollPaneAreaMensajes() {
+        return ScrollPaneAreaMensajes;
+    }
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollPaneAreaMensajes;
     private javax.swing.JTextArea TextAreaMensajes;
     private javax.swing.JButton botonFinTurno2;
     private javax.swing.JButton botonFinalizarPartida;
@@ -283,7 +296,6 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     private javax.swing.JButton botonVistaFlota;
     private javax.swing.JLabel fondoInicio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuBar menuBarraPrincipal;
     private javax.swing.JMenuItem menuCargarPartida;

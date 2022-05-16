@@ -1,20 +1,25 @@
 
 package com.wchay.proyecto2.backend.Jugadores;
 
+import com.wchay.proyecto2.backend.listas_enlazadas.ListaEnlazada;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
 import com.wchay.proyecto2.ui.panelNombreTipoJugador;
+import com.wchay.proyecto2.ui.planetas.Planeta;
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.Random;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jonwil
  */
-public class Jugador  implements Serializable{
+public class Jugador  implements Serializable {
+    
    private static final long serialVersionUID = 98L;
+   
+   private ListaEnlazada<Planeta> planetas_de_Jugador;
+   
+   private Color colorJugador;
    private String nombreJugador;
    private String tipoJugador;
    private String nombreNuevo; 
@@ -26,6 +31,7 @@ public class Jugador  implements Serializable{
 //        labelEnPanelJugador = new String();  
 //         botonTipo = new String();
         panelNombreTipo = new panelNombreTipoJugador();
+        
         establecerNombresRandoms();
     }
     
@@ -43,14 +49,12 @@ public class Jugador  implements Serializable{
             e.getMessage();
         }
     }
-
     
     public void configurarPanelMostrarAñadirJugadores(){
         panelNombreTipo.getTituloNombreJugador().setText(nombreJugador);
         panelNombreTipo.getBotonTipoJugador().setText(tipoJugador);
         panelNombreTipo.doLayout();
     }
-    
     
 //    
     public String getNombreJugador() {
@@ -72,9 +76,7 @@ public class Jugador  implements Serializable{
     public String getTipoJugador() {
         return tipoJugador;
     }
-    
 //
-
     public panelNombreTipoJugador getPanelJugador() {
         return panelNombreTipo;
     }
@@ -87,8 +89,6 @@ public class Jugador  implements Serializable{
         this.numeroJugador = numeroJugador;
     }
 
-    
-    
     
     
     

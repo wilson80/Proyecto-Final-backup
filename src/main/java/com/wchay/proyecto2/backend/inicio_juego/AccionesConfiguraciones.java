@@ -1,5 +1,5 @@
 
-package com.wchay.proyecto2.ui;
+package com.wchay.proyecto2.backend.inicio_juego;
 
 import com.wchay.proyecto2.backend.Jugadores.CrearJugadoress;
 import com.wchay.proyecto2.backend.Jugadores.Jugador;
@@ -7,6 +7,9 @@ import com.wchay.proyecto2.backend.inicio_juego.MotorJuego;
 import com.wchay.proyecto2.backend.listas_enlazadas.GuardarConfiguraciones;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaEnlazada;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
+import com.wchay.proyecto2.ui.ConfiguracionesPartidaNueva;
+import com.wchay.proyecto2.ui.VentanaPrincipal;
+import com.wchay.proyecto2.ui.panelNombreTipoJugador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,7 +19,7 @@ import javax.swing.JPanel;
 
 public class AccionesConfiguraciones implements ActionListener {
     
-    
+    private int primerPartida = -1;
 //    private Acciones principalAñadir;    
     private int jugadorEliminar;
     private CrearJugadoress crearJugador;           //Crea Jugadores y Nombre Aleatorios
@@ -99,8 +102,12 @@ public class AccionesConfiguraciones implements ActionListener {
     }
     public void crearConfiguracionPartida( ){
         try {
-            añadirPanelJugadorIndividual();
-            añadirPanelJugadorIndividual();
+            primerPartida++;
+            if(primerPartida==0){
+                añadirPanelJugadorIndividual();
+                añadirPanelJugadorIndividual();
+            }
+            
         } catch (Exception e) {
         }
         configuracionPartida.setVisible(true);
@@ -113,16 +120,12 @@ public class AccionesConfiguraciones implements ActionListener {
         botonAñadirJugadores.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    añadirPanelJugadorIndividual();
-                } catch (ListaException i) {
-                    i.getMessage();
-                }
+                añadirPanelJugadorIndividual();
             }
         });
     }
     
-    public void añadirPanelJugadorIndividual() throws ListaException {
+    public void añadirPanelJugadorIndividual() {
 //        verificarJugadorEliminado();
         JugadoresAñadidos++;
          //Creando Nuevo Jugador
@@ -142,9 +145,12 @@ public class AccionesConfiguraciones implements ActionListener {
 //                jugadoraAgregado.setNumeroJugador(JugadoresAñadidos);
                 
                 panelAñadirJugadores.doLayout();
-                System.out.println("SeAnadio el Jugador " );
+                System.out.println("Se Anadio el Jugador " );
+                
             } catch (ListaException e) {
                 System.out.println("Error al Anadir Jugador");
+                e.printStackTrace();
+                
             }
         }
     }
@@ -315,7 +321,6 @@ public class AccionesConfiguraciones implements ActionListener {
         });
     }
     
-    
     public void añadirAccionCancelar(){
         botonCancelar.addActionListener(new ActionListener() {
             @Override
@@ -326,6 +331,7 @@ public class AccionesConfiguraciones implements ActionListener {
     }
     
     public void cancelarCrearPartida(){
+        JugadoresAñadidos=-1;
         configuracionPartida.setVisible(false);
         ventanaPrincipal.setEnabled(true);
         configuracionPartida.doLayout();
@@ -353,7 +359,7 @@ public class AccionesConfiguraciones implements ActionListener {
     }
     
     private void iniciarCreacionJuego() {
-//        JugadoresAñadidos=0;
+        JugadoresAñadidos=-1;
         GuardarConfiguraciones mapaNuevo = new GuardarConfiguraciones(ventanaPrincipal, jugadoresSeleccionados  , configuracionPartida);
         mapaNuevo.iniciarConfiguracionPartida();
         

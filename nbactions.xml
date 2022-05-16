@@ -12,7 +12,7 @@
             <properties>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
-                <exec.mainClass>${packageClassName}</exec.mainClass>
+                <exec.mainClass>com.wchay.proyecto2.backend.inicio_juego.Main</exec.mainClass>
                 <exec.vmArgs></exec.vmArgs>
                 <exec.appArgs></exec.appArgs>
                 <exec.workingdir></exec.workingdir>
@@ -31,7 +31,7 @@
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
-                <exec.mainClass>${packageClassName}</exec.mainClass>
+                <exec.mainClass>com.wchay.proyecto2.backend.inicio_juego.Main</exec.mainClass>
                 <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.appArgs></exec.appArgs>
                 <exec.workingdir></exec.workingdir>
@@ -49,7 +49,7 @@
             <properties>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
-                <exec.mainClass>${packageClassName}</exec.mainClass>
+                <exec.mainClass>com.wchay.proyecto2.backend.inicio_juego.Main</exec.mainClass>
                 <exec.vmArgs></exec.vmArgs>
                 <exec.appArgs></exec.appArgs>
                 <exec.workingdir></exec.workingdir>

@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 
 public class panelNombreTipoJugador extends javax.swing.JPanel  {
     
-    private boolean eliminarJugador;
     private String nuevoNombre;
 
     public panelNombreTipoJugador() {
@@ -48,19 +47,24 @@ public class panelNombreTipoJugador extends javax.swing.JPanel  {
                     JOptionPane cambiarNombre = new JOptionPane();
                      String nuevoNombreIngresado = cambiarNombre.showInputDialog(null, "Introduce Un Nombre Nuevo", JOptionPane.INFORMATION_MESSAGE);
                     int letrasNombre =nuevoNombreIngresado.length();
-//***Añdir verificacion Nombre Largo
-                    if(letrasNombre>0){
+
+                    if(letrasNombre>0 && letrasNombre<11){
                         nuevoNombre = nuevoNombreIngresado;
                         tituloNombreJugador.setText(nuevoNombre);
                         this.doLayout();
                     }else{
+                        if(letrasNombre>10){
+                            JOptionPane error = new JOptionPane();
+                            error.showMessageDialog(null, "Ingreso mas de 10 Caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                        }else{
                         JOptionPane error = new JOptionPane();
                         error.showMessageDialog(null, "No ingreso nada", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
                     }
                 
                 }
     }//GEN-LAST:event_tituloNombreJugadorMouseClicked
-    
     
     //sets
     public void setBotonTipoJugador(JButton botonTipoJugador) {
@@ -78,19 +82,6 @@ public class panelNombreTipoJugador extends javax.swing.JPanel  {
         return tituloNombreJugador;
     }
 
-//    public JButton getBotonEliminarJugador() {
-//        return botonEliminarJugador;
-//    }
-    
-
-    
-    
-    
-    
-    
-
-    
-    
 
     
 

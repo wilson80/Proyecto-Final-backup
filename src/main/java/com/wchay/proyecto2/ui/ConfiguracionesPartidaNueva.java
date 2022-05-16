@@ -154,6 +154,7 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame  {
         CheckBoxMostrarAtributos.setSelected(true);
         CheckBoxMostrarAtributos.setText("Mostrar Atributos");
 
+        SpinnerPlanetasNeutrales.setModel(new javax.swing.SpinnerNumberModel(6, 6, 14, 1));
         SpinnerPlanetasNeutrales.setValue(6);
 
         tituloProduccion.setForeground(new java.awt.Color(255, 255, 255));
@@ -336,7 +337,8 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame  {
         panelConfiguracionesMapas.setForeground(new java.awt.Color(255, 255, 255));
         panelConfiguracionesMapas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SpinnerFilas.setValue(10);
+        SpinnerFilas.setModel(new javax.swing.SpinnerNumberModel(4, 4, 7, 1));
+        SpinnerFilas.setValue(7);
         panelConfiguracionesMapas.add(SpinnerFilas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 60, -1));
 
         SpinnerColumnas.setValue(10);
@@ -376,9 +378,11 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame  {
         });
         panelConfiguracionesMapas.add(ComboBoxTipoMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
+        tituloNombreMapa.setBackground(new java.awt.Color(0, 0, 0));
         tituloNombreMapa.setForeground(new java.awt.Color(255, 255, 255));
         tituloNombreMapa.setText("Mapa por Defecto");
         tituloNombreMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tituloNombreMapa.setOpaque(true);
         tituloNombreMapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tituloNombreMapaMouseClicked(evt);
@@ -388,17 +392,17 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame  {
 
         tituloPlanetasZombies.setForeground(new java.awt.Color(255, 255, 255));
         tituloPlanetasZombies.setText("Cantidad Plantetas Zombies");
-        panelConfiguracionesMapas.add(tituloPlanetasZombies, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 160, 30));
+        panelConfiguracionesMapas.add(tituloPlanetasZombies, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 160, 30));
 
         tituloPlanetasFantasmas.setForeground(new java.awt.Color(255, 255, 255));
         tituloPlanetasFantasmas.setText("Cantidad Plantetas Fantasmas");
-        panelConfiguracionesMapas.add(tituloPlanetasFantasmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 170, 30));
+        panelConfiguracionesMapas.add(tituloPlanetasFantasmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 170, 30));
 
         SpinnerPlanetasFantasmas.setValue(3);
-        panelConfiguracionesMapas.add(SpinnerPlanetasFantasmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 230, 80, 30));
+        panelConfiguracionesMapas.add(SpinnerPlanetasFantasmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 80, 30));
 
         SpinnerPlanetasZombies.setValue(3);
-        panelConfiguracionesMapas.add(SpinnerPlanetasZombies, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 290, 80, 30));
+        panelConfiguracionesMapas.add(SpinnerPlanetasZombies, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 80, 30));
 
         javax.swing.GroupLayout panelConfiguracionesMapaLayout = new javax.swing.GroupLayout(panelConfiguracionesMapa);
         panelConfiguracionesMapa.setLayout(panelConfiguracionesMapaLayout);

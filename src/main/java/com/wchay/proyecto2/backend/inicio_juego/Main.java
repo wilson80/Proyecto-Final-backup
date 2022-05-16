@@ -1,9 +1,10 @@
 
-package com.wchay.proyecto2.backend.listas_enlazadas;
+package com.wchay.proyecto2.backend.inicio_juego;
 
-import com.wchay.proyecto2.ui.AccionesConfiguraciones;
+import com.wchay.proyecto2.backend.inicio_juego.AccionesConfiguraciones;
 import com.wchay.proyecto2.ui.VentanaPrincipal;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 /**
  *
@@ -13,8 +14,11 @@ public class Main {
     public static void main(String[] args) {
         VentanaPrincipal ventanaInicioPrincipal = new VentanaPrincipal();
         ventanaInicioPrincipal.setVisible(true);
+           
         
-
     }
+    
+     
+    
     
 }
