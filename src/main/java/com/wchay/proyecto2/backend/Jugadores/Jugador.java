@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
  *
  * @author Jonwil
  */
-public class Jugador implements Serializable{
+public class Jugador  implements Serializable{
+   private static final long serialVersionUID = 98L;
    private String nombreJugador;
    private String tipoJugador;
    private String nombreNuevo; 

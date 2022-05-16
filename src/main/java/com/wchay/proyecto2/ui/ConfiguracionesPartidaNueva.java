@@ -1,6 +1,7 @@
 
 package com.wchay.proyecto2.ui;
 
+import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -9,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
-public class ConfiguracionesPartidaNueva extends javax.swing.JFrame {
+public class ConfiguracionesPartidaNueva extends javax.swing.JFrame  {
 //    private int jugadorAEliminar;
     public ConfiguracionesPartidaNueva( ) {
         initComponents();
@@ -500,7 +501,7 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonGuardarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarMapaActionPerformed
-        JOptionPane.showMessageDialog(null, "Se ha guardado el Mapa");
+
     }//GEN-LAST:event_botonGuardarMapaActionPerformed
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
@@ -610,15 +611,7 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame {
     public JPanel getPanelJugador8() {
         return panelJugador8;
     }
-//
-//    public int getJugadorAEliminar() {
-//        return jugadorAEliminar;
-//    }
-//
-//    public void setJugadorAEliminar(int jugadorAEliminar) {
-//        this.jugadorAEliminar = jugadorAEliminar;
-//    }
-    
+
     public JCheckBox getCheckBoxAcumulacion() {
         return CheckBoxAcumulacion;
     }
@@ -664,6 +657,7 @@ public class ConfiguracionesPartidaNueva extends javax.swing.JFrame {
     public JLabel getTituloNombreMapa() {
         return tituloNombreMapa;
     }
+    
     
     
       

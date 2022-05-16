@@ -1,11 +1,13 @@
 
 package com.wchay.proyecto2.ui;
 
+import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class panelNombreTipoJugador extends javax.swing.JPanel {
+public class panelNombreTipoJugador extends javax.swing.JPanel  {
+    
     private boolean eliminarJugador;
     private String nuevoNombre;
 

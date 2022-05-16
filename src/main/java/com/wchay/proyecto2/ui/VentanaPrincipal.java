@@ -3,18 +3,17 @@ package com.wchay.proyecto2.ui;
 
 import java.io.Serializable;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class VentanaPrincipal extends javax.swing.JFrame implements Serializable{
+public class VentanaPrincipal extends javax.swing.JFrame  {
     
-    private static final long serialVersionUID=98L;   
-    private Acciones añadir;
+    private AccionesConfiguraciones añadir;
 
     
     public VentanaPrincipal() {
+        
         initComponents();
-        añadir = new Acciones(this);
+        añadir = new AccionesConfiguraciones(this);
         panelTurnoJugador.setVisible(false);
         panelMapa.setVisible(false);
         añadirAcciones();
@@ -35,6 +34,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
         panelTurnoJugador = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelMapa = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TextAreaMensajes = new javax.swing.JTextArea();
+        pruebaTextArea = new javax.swing.JButton();
         fondoInicio = new javax.swing.JLabel();
         menuBarraPrincipal = new javax.swing.JMenuBar();
         menuJuego = new javax.swing.JMenu();
@@ -139,7 +141,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
         panelTurnoJugador.setBackground(new java.awt.Color(102, 0, 102));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Turno Jugador :");
 
         javax.swing.GroupLayout panelTurnoJugadorLayout = new javax.swing.GroupLayout(panelTurnoJugador);
@@ -163,8 +165,37 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
 
         panelMapa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 0), 1, true));
         panelMapa.setOpaque(false);
-        panelMapa.setLayout(new java.awt.GridLayout(1, 0));
-        getContentPane().add(panelMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 800, 540));
+
+        javax.swing.GroupLayout panelMapaLayout = new javax.swing.GroupLayout(panelMapa);
+        panelMapa.setLayout(panelMapaLayout);
+        panelMapaLayout.setHorizontalGroup(
+            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1468, Short.MAX_VALUE)
+        );
+        panelMapaLayout.setVerticalGroup(
+            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 538, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1470, 540));
+
+        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 153), 2, true));
+
+        TextAreaMensajes.setBackground(new java.awt.Color(0, 0, 51));
+        TextAreaMensajes.setColumns(20);
+        TextAreaMensajes.setForeground(new java.awt.Color(255, 255, 255));
+        TextAreaMensajes.setRows(5);
+        jScrollPane1.setViewportView(TextAreaMensajes);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 930, 130));
+
+        pruebaTextArea.setText("jButton1");
+        pruebaTextArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pruebaTextAreaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pruebaTextArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 640, 130, 60));
 
         fondoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondos/fondoPrincipal.png"))); // NOI18N
         getContentPane().add(fondoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 770));
@@ -218,6 +249,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
     private void botonFinalizarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarPartidaActionPerformed
     }//GEN-LAST:event_botonFinalizarPartidaActionPerformed
 
+    private void pruebaTextAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pruebaTextAreaActionPerformed
+        TextAreaMensajes.setEnabled(false);
+        
+        
+    }//GEN-LAST:event_pruebaTextAreaActionPerformed
+
     public JPanel getPanelMapa() {
         return panelMapa;
     }
@@ -230,18 +267,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
         return botonPartidaNueva;
     }
 
-    public Acciones getAñadir() {
+    public AccionesConfiguraciones getAñadir() {
         return añadir;
     }
 
-    @Override
-    public String toString() {
-        return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea TextAreaMensajes;
     private javax.swing.JButton botonFinTurno2;
     private javax.swing.JButton botonFinalizarPartida;
     private javax.swing.JButton botonMedirDistancias;
@@ -250,6 +283,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
     private javax.swing.JButton botonVistaFlota;
     private javax.swing.JLabel fondoInicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuBar menuBarraPrincipal;
     private javax.swing.JMenuItem menuCargarPartida;
@@ -261,5 +295,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Serializable
     private javax.swing.JPanel panelMapa;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JPanel panelTurnoJugador;
+    private javax.swing.JButton pruebaTextArea;
     // End of variables declaration//GEN-END:variables
 }

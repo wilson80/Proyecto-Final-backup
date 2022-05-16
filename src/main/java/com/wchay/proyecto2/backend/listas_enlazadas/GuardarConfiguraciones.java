@@ -1,9 +1,9 @@
 
 package com.wchay.proyecto2.backend.listas_enlazadas;
 
-import com.wchay.proyecto2.backend.Jugadores.CrearJugadoress;
 import com.wchay.proyecto2.backend.Jugadores.Jugador;
-import com.wchay.proyecto2.backend.mapa.Mapa;
+import com.wchay.proyecto2.backend.inicio_juego.MotorJuego;
+import com.wchay.proyecto2.backend.mapa.configuracionesMapa;
 import com.wchay.proyecto2.ui.ConfiguracionesPartidaNueva;
 import com.wchay.proyecto2.ui.VentanaPrincipal;
 import java.io.File;
@@ -11,15 +11,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 /**
  *
  * @author Jonwil
  */
-
-public class GuardarConfiguraciones{
-    private Mapa mapa;
-    private Mapa mapaGuardado;
+public class GuardarConfiguraciones {
+    
+    private File nuevoFile;
+    private configuracionesMapa mapa;
+    private configuracionesMapa mapaGuardado;          //
     VentanaPrincipal ventanaInicioPrincipal;
     ListaEnlazada<Jugador> jugadoresSeleccionados;
     ConfiguracionesPartidaNueva configuracionPartida;
@@ -60,7 +60,7 @@ public class GuardarConfiguraciones{
         inicializarInformacion();
     }
     
-    public void inicializarInformacion() {
+    private void inicializarInformacion() {
         nombreMapa = configuracionPartida.getTituloNombreMapa().getText();
         filas = Integer.valueOf(configuracionPartida.getSpinnerFilas().getValue().toString());
         columnas = Integer.valueOf(configuracionPartida.getSpinnerColumnas().getValue().toString());
@@ -77,14 +77,12 @@ public class GuardarConfiguraciones{
         mostrarAtributos = configuracionPartida.getCheckBoxMostrarAtributos().isSelected();
         produccionPN = Integer.valueOf(configuracionPartida.getSpinnerProduccion().getValue().toString());
         
-        mapa = new Mapa(nombreMapa, filas, columnas, turnosMaximos, Al_Azar, tipoMapa, 
-                cantidadPFantasmas, cantidadPZombies, procuccionAcumulativa, procuccionTrascaptura,
-                mapaCiego, cantidadPN, mostrarNaves, mostrarAtributos, produccionPN, jugadoresSeleccionados);
-        
+        mapa = new configuracionesMapa(jugadoresSeleccionados, nombreMapa, filas, columnas, turnosMaximos, Al_Azar, tipoMapa, cantidadPFantasmas, cantidadPZombies, procuccionAcumulativa, procuccionTrascaptura, mapaCiego, cantidadPN, mostrarNaves, mostrarAtributos, produccionPN);
+
     }
     
-    public void guardarJugadoresSeleccionados() {
-        File nuevoFile = new File("C:\\Users\\Jonwil\\Desktop\\"+nombreMapa);
+    public void guardarConfiguracionesJuego() {
+        nuevoFile = new File("C:\\Users\\Jonwil\\Desktop\\"+nombreMapa);
         //Almacenamiento de datos en archivos de texto(Tiene muchos inconvenientes) 
         
         try(FileOutputStream fileOutputStream = new FileOutputStream(nuevoFile);
@@ -96,32 +94,34 @@ public class GuardarConfiguraciones{
             System.out.println("Error al crear Archivo");
             e.printStackTrace();
         }
-        
+    }
+    
+    
+    
+    public void cargarConfiguracionesJuego(){
         try(FileInputStream fileInputStream = new FileInputStream(nuevoFile);
             ObjectInputStream objetStream = new ObjectInputStream(fileInputStream);){
-             mapaGuardado = (Mapa)objetStream.readObject();
+             mapaGuardado = (configuracionesMapa)objetStream.readObject();
              mapaGuardado.imprimirDatos();
              mapaGuardado.imprimirNombreJugadores();
-             
-             
         } catch (Exception e){
             System.out.println("El archivo no existe");
             e.printStackTrace();
         }
     }
     
-    public void NOMBRES(){
-        for (int i = 0; i < 10; i++) {
-            try {
-                System.out.println("NOmbre " +i + jugadoresSeleccionados.obtenerContenido(i).getNombreJugador());
-                
-            } catch (Exception e) {
-            }
-        }
-        
-    }
+    public void iniciarConfiguracionPartida() {
+        MotorJuego iniciarJuego = new MotorJuego(mapa, ventanaInicioPrincipal, jugadoresSeleccionados, 
+                configuracionPartida, nombreMapa, filas, columnas, turnosMaximos, Al_Azar, tipoMapa,
+                cantidadPFantasmas, cantidadPZombies, procuccionAcumulativa, procuccionTrascaptura,
+                mapaCiego, cantidadPN, mostrarNaves, mostrarAtributos, produccionPN);
+    }    
     
+    
+                
+
     
 
+    
     
 }

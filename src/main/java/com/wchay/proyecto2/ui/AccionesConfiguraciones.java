@@ -3,25 +3,19 @@ package com.wchay.proyecto2.ui;
 
 import com.wchay.proyecto2.backend.Jugadores.CrearJugadoress;
 import com.wchay.proyecto2.backend.Jugadores.Jugador;
+import com.wchay.proyecto2.backend.inicio_juego.MotorJuego;
 import com.wchay.proyecto2.backend.listas_enlazadas.GuardarConfiguraciones;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaEnlazada;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
-import com.wchay.proyecto2.backend.mapa.Mapa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Jonwil
- */
-public class Acciones implements ActionListener {
+public class AccionesConfiguraciones implements ActionListener {
     
-//    private static final long serialVersionUID=99L;
     
 //    private Acciones principalAñadir;    
     private int jugadorEliminar;
@@ -50,7 +44,7 @@ public class Acciones implements ActionListener {
     private JPanel panelJugador4,panelJugador5,panelJugador6,panelJugador7;
     
     
-    public Acciones(VentanaPrincipal ventanaPrincipal) {    //CONSTRUCTOR
+    public AccionesConfiguraciones(VentanaPrincipal ventanaPrincipal) {    //CONSTRUCTOR
         this.ventanaPrincipal = ventanaPrincipal;
         inicialiarAtributos();
 //        jugadoresSeleccionados = crearJugador.getJugadoresSeleccionados();
@@ -67,6 +61,7 @@ public class Acciones implements ActionListener {
         botonAñadirJugadores = configuracionPartida.getBotonAñadirJugadores();
         botonContinuar = configuracionPartida.getBotonContinuar();
         botonCancelar = configuracionPartida.getBotonCancelar();
+        botonGuardarMapa = configuracionPartida.getBotonGuardarMapa();
         panelMapa = ventanaPrincipal.getPanelMapa();
         panelTurno = ventanaPrincipal.getPanelTurno();
     btnEliminarJ0 = configuracionPartida.getBotonEliminarJugador1();
@@ -88,6 +83,7 @@ public class Acciones implements ActionListener {
         añadirAccionBotonAnadirJugadores();
         añadirAccionCancelar();
         añadirAccionContinuar();
+        accionGuardarMapa();
         eliminarJugadoresAñadirAaccion(); /////////////////
                
     }
@@ -314,37 +310,10 @@ public class Acciones implements ActionListener {
         botonContinuar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                crearPartida();
+                iniciarCreacionJuego();
             }
         });
     }
-    public void crearPartida(){
-        configuracionPartida.setVisible(false);
-        ventanaPrincipal.setEnabled(true);
-        botonPartidaNueva.setEnabled(false);
-        try {
-            for (int i = 0; i < 8; i++) {
-                int numeroJugadorr =crearJugador.getJugadoresSeleccionados().obtenerContenido(i).getNumeroJugador();
-                String nombreJugado_aPartida  =crearJugador.getJugadoresSeleccionados().obtenerContenido(i).getPanelJugador().getTituloNombreJugador().getText();
-                System.out.println("NumeroJugador A partida " + numeroJugadorr);
-                System.out.println("NombreJugador A partida " + nombreJugado_aPartida);
-            }
-        } catch (ListaException e) {
-             System.out.println("Error en crear Partidas");       
-        }
-        
-        MapaPruebas mapaPruebas = new MapaPruebas();
-        panelMapa.add(mapaPruebas); ///////////
-        panelMapa.setVisible(true);
-        panelTurno.setVisible(true);
-        panelMapa.doLayout();
-        ventanaPrincipal.doLayout();
-        //GuardarConfiguracion Para Cargarla
-        crearMapa();
-        
-        
-    }
-    
     
     
     public void añadirAccionCancelar(){
@@ -362,24 +331,34 @@ public class Acciones implements ActionListener {
         configuracionPartida.doLayout();
         ventanaPrincipal.doLayout();
     }
-
-    private void crearMapa() {
-//        GuardarConfiguraciones mapaNuevo = new GuardarConfiguraciones();
-        GuardarConfiguraciones mapaNuevo = new GuardarConfiguraciones(ventanaPrincipal, jugadoresSeleccionados  , configuracionPartida);
-        System.out.println("NNNNNNNNNNN");
-        mapaNuevo.guardarJugadoresSeleccionados();
+    
+    
+    public void accionGuardarMapa(){
+        botonGuardarMapa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                guardarConfiguracionesJuego();
+            }
+        });
+    }   
+    
+    
+    public void guardarConfiguracionesJuego() {
+        GuardarConfiguraciones guardarMapa = new GuardarConfiguraciones(ventanaPrincipal, jugadoresSeleccionados  , configuracionPartida);
+        guardarMapa.guardarConfiguracionesJuego();
+        System.out.println("CARGANDO cONFIGURACIONES");
+        guardarMapa.cargarConfiguracionesJuego();
         
-//        mapaNuevo.NOMBRES();
-        System.out.println("?????");
+        JOptionPane.showMessageDialog(null, "Se ha guardado el Mapa");
+    }
+    
+    private void iniciarCreacionJuego() {
+//        JugadoresAñadidos=0;
+        GuardarConfiguraciones mapaNuevo = new GuardarConfiguraciones(ventanaPrincipal, jugadoresSeleccionados  , configuracionPartida);
+        mapaNuevo.iniciarConfiguracionPartida();
         
     }
 
-    
-    
-    
 
 }
  
-    
-    
-

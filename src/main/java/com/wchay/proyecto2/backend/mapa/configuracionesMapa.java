@@ -2,10 +2,17 @@ package com.wchay.proyecto2.backend.mapa;
 
 import com.wchay.proyecto2.backend.Jugadores.Jugador;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaEnlazada;
+import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
+import com.wchay.proyecto2.ui.ConfiguracionesPartidaNueva;
+import com.wchay.proyecto2.ui.VentanaPrincipal;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.io.Serializable;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 
-public class Mapa implements Serializable {
+public class configuracionesMapa implements Serializable {
     
     private static final long serialVersionUID=98L;
     
@@ -29,27 +36,9 @@ public class Mapa implements Serializable {
     private boolean mostrarNaves;
     private boolean mostrarAtributos;
     private int produccionPN;
-    
-    
-    
 
-    public Mapa(String nombreMapa, 
-                int filas,
-                int columnas,
-                int turnosMaximos, 
-                boolean Al_Azar, 
-                int tipoMapa,
-                int cantidadPFantasmas,
-                int cantidadPZombies, 
-                boolean procuccionAcumulativa, 
-                boolean procuccionTrascaptura, 
-                boolean mapaCiego, 
-                int cantidadPN, 
-                boolean mostrarNaves, 
-                boolean mostrarAtributos,
-                int produccionPN,
-                ListaEnlazada<Jugador> jugadoresSeleccionados) {
-        
+    public configuracionesMapa(ListaEnlazada<Jugador> jugadoresSeleccionados, String nombreMapa, int filas, int columnas, int turnosMaximos, boolean Al_Azar, int tipoMapa, int cantidadPFantasmas, int cantidadPZombies, boolean procuccionAcumulativa, boolean procuccionTrascaptura, boolean mapaCiego, int cantidadPN, boolean mostrarNaves, boolean mostrarAtributos, int produccionPN) {
+        this.jugadoresSeleccionados = jugadoresSeleccionados;
         this.nombreMapa = nombreMapa;
         this.filas = filas;
         this.columnas = columnas;
@@ -65,10 +54,9 @@ public class Mapa implements Serializable {
         this.mostrarNaves = mostrarNaves;
         this.mostrarAtributos = mostrarAtributos;
         this.produccionPN = produccionPN;
-        this.jugadoresSeleccionados = jugadoresSeleccionados;
-        
     }
 
+    
     
     public void imprimirDatos(){
         System.out.println("Primer Mapa guardado");
@@ -80,6 +68,7 @@ public class Mapa implements Serializable {
     public ListaEnlazada<Jugador> getJugadoresSeleccionados() {
         return jugadoresSeleccionados;
     }
+    
     
     public void imprimirNombreJugadores() {
         System.out.println("NOmbreJUgadoresssssssss");
@@ -94,13 +83,6 @@ public class Mapa implements Serializable {
         
     }
     
-    
-    
-    
-
-    
-    
-    
-    
+ 
     
 }
