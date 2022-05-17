@@ -29,12 +29,13 @@ public class panelNombreTipoJugador extends javax.swing.JPanel  {
         tituloNombreJugador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloNombreJugador.setText("Jugador1");
         tituloNombreJugador.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        tituloNombreJugador.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         tituloNombreJugador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tituloNombreJugadorMouseClicked(evt);
             }
         });
-        add(tituloNombreJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 100, -1));
+        add(tituloNombreJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, -1));
 
         botonTipoJugador.setBackground(new java.awt.Color(0, 0, 0));
         botonTipoJugador.setForeground(new java.awt.Color(255, 255, 255));
@@ -43,27 +44,27 @@ public class panelNombreTipoJugador extends javax.swing.JPanel  {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tituloNombreJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tituloNombreJugadorMouseClicked
-                if(evt.getClickCount()==2){
-                    JOptionPane cambiarNombre = new JOptionPane();
-                     String nuevoNombreIngresado = cambiarNombre.showInputDialog(null, "Introduce Un Nombre Nuevo", JOptionPane.INFORMATION_MESSAGE);
-                    int letrasNombre =nuevoNombreIngresado.length();
+        if(evt.getClickCount()==2){
+            JOptionPane cambiarNombre = new JOptionPane();
+            String nuevoNombreIngresado = cambiarNombre.showInputDialog(null, "Introduce Un Nombre Nuevo", JOptionPane.INFORMATION_MESSAGE);
+            int letrasNombre =nuevoNombreIngresado.length();
 
-                    if(letrasNombre>0 && letrasNombre<11){
-                        nuevoNombre = nuevoNombreIngresado;
-                        tituloNombreJugador.setText(nuevoNombre);
-                        this.doLayout();
-                    }else{
-                        if(letrasNombre>10){
-                            JOptionPane error = new JOptionPane();
-                            error.showMessageDialog(null, "Ingreso mas de 10 Caracteres", "Error", JOptionPane.ERROR_MESSAGE);
-                        }else{
-                        JOptionPane error = new JOptionPane();
-                        error.showMessageDialog(null, "No ingreso nada", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        
-                    }
-                
+            if(letrasNombre>0 && letrasNombre<11){
+                nuevoNombre = nuevoNombreIngresado;
+                tituloNombreJugador.setText(nuevoNombre);
+                this.doLayout();
+            }else{
+                if(letrasNombre>10){
+                    JOptionPane error = new JOptionPane();
+                    error.showMessageDialog(null, "Ingreso mas de 10 Caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane error = new JOptionPane();
+                    error.showMessageDialog(null, "No ingreso nada", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
+            }
+
+        }
     }//GEN-LAST:event_tituloNombreJugadorMouseClicked
     
     //sets

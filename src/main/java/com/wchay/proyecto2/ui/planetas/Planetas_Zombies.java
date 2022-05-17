@@ -11,8 +11,9 @@ import java.awt.Color;
 public class Planetas_Zombies extends Planeta{
 
     public Planetas_Zombies() {
-        setTipoMapa("9.png");
+        setTipoPlaneta("9.png");
         setColorFondo(Color.BLACK);
+        setTextoNombre("EEE");
     }
     
     

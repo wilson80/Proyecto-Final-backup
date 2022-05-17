@@ -25,7 +25,7 @@ public class AccionesConfiguraciones implements ActionListener {
     private CrearJugadoress crearJugador;           //Crea Jugadores y Nombre Aleatorios
     private Jugador jugadoraAgregado;                
     private Jugador jugadorBuscado;
-    private int JugadoresAñadidos=-1;
+    private int JugadoresAñadidos=0;
     private panelNombreTipoJugador panelNombreTipo;             //Añade el panel con el nombre y tipo del Jugador y boton Eliminar y Posibilidad de cambiar NOmbre
     private  ListaEnlazada<Jugador> jugadoresSeleccionados;
 //    Atributos VentanaPrincipal
@@ -55,9 +55,7 @@ public class AccionesConfiguraciones implements ActionListener {
     
     
     public void inicialiarAtributos(){
-        panelNombreTipo = new panelNombreTipoJugador();
-        crearJugador = new CrearJugadoress();
-        jugadoresSeleccionados =  crearJugador.getJugadoresSeleccionados();
+        panelNombreTipo = new panelNombreTipoJugador();       
         configuracionPartida = new ConfiguracionesPartidaNueva();
         panelAñadirJugadores = configuracionPartida.getPanelAñadirJugadores();
         comboboxJugadorNuevo = configuracionPartida.getComboboxJugadorNuevo();
@@ -101,6 +99,8 @@ public class AccionesConfiguraciones implements ActionListener {
         });
     }
     public void crearConfiguracionPartida( ){
+        crearJugador = new CrearJugadoress();
+        jugadoresSeleccionados =  crearJugador.getJugadoresSeleccionados();
         try {
             primerPartida++;
             if(primerPartida==0){
@@ -126,32 +126,32 @@ public class AccionesConfiguraciones implements ActionListener {
     }
     
     public void añadirPanelJugadorIndividual() {
-//        verificarJugadorEliminado();
-        JugadoresAñadidos++;
+        JugadoresAñadidos = jugadoresSeleccionados.obtenerLongitud();
          //Creando Nuevo Jugador
-        if(JugadoresAñadidos>7) {
-            JOptionPane.showMessageDialog(panelAñadirJugadores, "No puede añadir mas de 8 Jugadores");
-        }else {
-            int jugadorNuevoSeleccionado = comboboxJugadorNuevo.getSelectedIndex();
+        if(JugadoresAñadidos<=7) {
+            int jugadorNuevoSeleccionado = comboboxJugadorNuevo.getSelectedIndex();  //tipo JugadorSeleccionado en combobox
             try {
 //creando Nuevo Jugador
                 crearJugador.crearJugadores(jugadorNuevoSeleccionado);
-                jugadoraAgregado=crearJugador.getJugadoresSeleccionados().obtenerContenido(JugadoresAñadidos);
+                jugadoraAgregado = jugadoresSeleccionados.obtenerContenido(JugadoresAñadidos);
                 jugadoraAgregado.configurarPanelMostrarAñadirJugadores();
+//                jugadoraAgregado=crearJugador.getJugadoresSeleccionados().obtenerContenido(JugadoresAñadidos);
+//                jugadoraAgregado.configurarPanelMostrarAñadirJugadores();
                 //añadiendo el panel que contiene el nombre 
                                                                 //y tipo al panel donde van la informacion de los Jugadores
                                                                 agregarJugadoresEnsuPanel();
-                                                                System.out.println("Anadiendo Jugador en su panel");
 //                jugadoraAgregado.setNumeroJugador(JugadoresAñadidos);
                 
                 panelAñadirJugadores.doLayout();
-                System.out.println("Se Anadio el Jugador " );
+                System.out.println("Se Anadio el Jugador" + jugadoraAgregado.getNumeroJugador());
                 
             } catch (ListaException e) {
                 System.out.println("Error al Anadir Jugador");
                 e.printStackTrace();
                 
             }
+        }else {
+            JOptionPane.showMessageDialog(panelAñadirJugadores, "No puede añadir mas de 8 Jugadores");
         }
     }
     
@@ -230,7 +230,8 @@ public class AccionesConfiguraciones implements ActionListener {
                 }else if(i==7){
                     panelJugador7.remove(jugador.getPanelJugador());
                     panelJugador7.repaint();
-                }   
+                } 
+                
             } catch (Exception e) {
                 System.out.println("NO hay contenido" +i);
             }
@@ -243,6 +244,7 @@ public class AccionesConfiguraciones implements ActionListener {
             eliminarPanelJugador();
 //            panelJugador1.remove(crearJugador.getJugadoresSeleccionados().obtenerContenido(jugadorEliminar-1).getPanelJugador());
             crearJugador.getJugadoresSeleccionados().eliminarElementoEnIndice(jugadorEliminar);
+            System.out.println("Se elimino el Jugador" );
 //            JugadoresAñadidos--;
 //                    panelJugador1.repaint();
 //            System.out.println("Jugador eliminado" + jugadorEliminar);
@@ -331,6 +333,8 @@ public class AccionesConfiguraciones implements ActionListener {
     }
     
     public void cancelarCrearPartida(){
+        eliminarPanelJugador();
+//        crearJugador = new CrearJugadoress
         JugadoresAñadidos=-1;
         configuracionPartida.setVisible(false);
         ventanaPrincipal.setEnabled(true);

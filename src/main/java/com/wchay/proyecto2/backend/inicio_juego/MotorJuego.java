@@ -6,6 +6,7 @@ import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
 import com.wchay.proyecto2.backend.mapa.configuracionesMapa;
 import com.wchay.proyecto2.ui.ConfiguracionesPartidaNueva;
 import com.wchay.proyecto2.ui.MapaPruebas;
+import com.wchay.proyecto2.ui.PanelPlaneta;
 import com.wchay.proyecto2.ui.VentanaPrincipal;
 import com.wchay.proyecto2.ui.planetas.Planeta;
 import com.wchay.proyecto2.ui.planetas.Planeta_jugador;
@@ -15,21 +16,26 @@ import com.wchay.proyecto2.ui.planetas.Planetas_Zombies;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.Random;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 /** 
  *
  * @author Jonwil
  */
-public class MotorJuego {
+public class MotorJuego   {
     configuracionesMapa iniciarMapa;  
     VentanaPrincipal ventanaInicioPrincipal;
     ListaEnlazada<Jugador> jugadoresSeleccionados;
     ConfiguracionesPartidaNueva configuracionPartida;
-    
 //    private JPanel panelContenedor;
-    
     
     private String nombreMapa;
     private int filas;
@@ -60,8 +66,9 @@ public class MotorJuego {
     private int planetasTotales;
     
     private  int numeroAleatorio;
-     private  int contador =-1;
-     private  int [] numerosGenerados;
+    private  int contador =-1;
+    private  int [] numerosGenerados;
+    private int planetaSeleccionado;
      
      //
     public MotorJuego(configuracionesMapa iniciarMapa, VentanaPrincipal ventanaInicioPrincipal, ListaEnlazada<Jugador> jugadoresSeleccionados, ConfiguracionesPartidaNueva configuracionPartida, String nombreMapa, int filas, int columnas, int turnosMaximos, boolean Al_Azar, int tipoMapa, int cantidadPFantasmas, int cantidadPZombies, boolean procuccionAcumulativa, boolean procuccionTrascaptura, boolean mapaCiego, int cantidadPN, boolean mostrarNaves, boolean mostrarAtributos, int produccionPN) {
@@ -106,10 +113,12 @@ public class MotorJuego {
         contenedorCasillas.setVisible(true);
         contenedorCasillas.setLayout(cuadricula);
         contenedorCasillas.setOpaque(false);
+        JPanel panelMapa = ventanaInicioPrincipal.getPanelMapa(); ///////////
+        panelMapa.add(contenedorCasillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 1, 800, 540));
         //rectangular
 //        mapaPruebas.setBounds(100, 1, 1200, 540);
           //cuadrado  
-          contenedorCasillas.setBounds(100, 1, 800, 540);
+//          contenedorCasillas.setBounds(100, 1, 800, 540);
         cantidadCasillas = (filas*columnas); //cantidad de casillas en el mapa
         
       crearPosicionesAleatorios();
@@ -127,16 +136,15 @@ public class MotorJuego {
         }
         
         try {
-            agregarPlanetasNeutralesCasillasAleatorias();
-            
+            agregarPlanetasCasillasAleatorias();
             contenedorCasillas.doLayout();
         } catch (Exception e) {
             System.out.println("Error al agregar PN");
             e.printStackTrace();
         }
         
-        JPanel panelMapa = ventanaInicioPrincipal.getPanelMapa(); ///////////
-        panelMapa.add(contenedorCasillas); ///////////
+        
+                ///////////Absolute Layot
         panelMapa.setVisible(true);
         ventanaInicioPrincipal.getPanelTurno().setVisible(true);
         panelMapa.doLayout();
@@ -145,113 +153,162 @@ public class MotorJuego {
 
     }
     
-    public void agregarPlanetasNeutralesCasillasAleatorias() {
+    public void agregarPlanetasCasillasAleatorias() {
+        //planetas neutrales, fantasmas, y Zombies
+        Planeta noUso = new Planeta();
+        AñadirPlanetas_a_Mapa(0, cantidadPN, planetasNeutrales, 1,noUso);
+        AñadirPlanetas_a_Mapa(cantidadPN, cantidadPN+cantidadPFantasmas, planetasFantasmas, 2, noUso);
+        AñadirPlanetas_a_Mapa(cantidadPN+cantidadPFantasmas
+                       ,cantidadPN+cantidadPFantasmas+cantidadPZombies, planetasZombies, 3, noUso);
+        //Planetas de Jugador
+        int PlanetasJugadorI ;
+        int PlanetasJugadorF;
+        PlanetasJugadorI = cantidadPN+cantidadPFantasmas+cantidadPZombies;
+        PlanetasJugadorF = PlanetasJugadorI+1;
         
-        AñadirPlanetaC(0, cantidadPN, planetasNeutrales, 1);
-        AñadirPlanetaC(cantidadPN, cantidadPN+cantidadPFantasmas, planetasFantasmas, 2);
-        AñadirPlanetaC(cantidadPN+cantidadPFantasmas, cantidadPN+cantidadPFantasmas+cantidadPZombies, planetasZombies, 3);
-       
+        Planeta planeta;
+        try {              //iniciociclo      //Finciclo      //jugador          //listaPlanetas         //planeta
+            //jugador 1
+            
+            for (int i = 0; i < jugadoresSeleccionados.obtenerLongitud(); i++) {
+                planeta = jugadoresSeleccionados.obtenerContenido(i).getPlanetas_de_Jugador().obtenerContenido(0);
+                AñadirPlanetas_a_Mapa(PlanetasJugadorI,PlanetasJugadorF, planetasZombies, 4,planeta);
+                PlanetasJugadorI++;
+                PlanetasJugadorF++;
+            }
+            
+        } catch (ListaException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
     }
     
-    public void AñadirPlanetaC(int cantidadInicio, int cantidadFin, ListaEnlazada lista, int quePlaneta) {
+    
+    
+    
+    public void AñadirPlanetas_a_Mapa(int cantidadInicio, int cantidadFin, ListaEnlazada lista, int quePlaneta, Planeta planeta) {
         try {
             for (int i = cantidadInicio; i < cantidadFin; i++) {
-                Planeta planeta;
-                if(quePlaneta==1){
+                
+                if(quePlaneta<=3){
+                    if(quePlaneta==1){
                      planeta =new Planetas_Neutrales();
-                }else if(quePlaneta==2) {
-                     planeta = new Planetas_Fantasmas();
-                }else {
-                     planeta = new Planetas_Zombies();
+                    }else if(quePlaneta==2) {
+                        planeta = new Planetas_Fantasmas();
+                    }else {
+                         planeta = new Planetas_Zombies();
+                    }
+                    lista = new ListaEnlazada();
+                    lista.agregar(planeta);
+//                    planeta.setAccion();
                 }
-                lista = new ListaEnlazada();
-                lista.agregar(planeta);        //Agregando el Planeta a su Lista
+                        //Agregando el Planeta a su Lista
                 
     //            planeta = new Planetas_Neutrales();
+                
                 int posicionAleatoria = numerosGenerados[i];
                 JPanel panel = casillasMapa.obtenerContenido(posicionAleatoria);
+                planeta.setPosicionInsertado(posicionAleatoria);
                 planeta.setAncho(78);
                 planeta.setAlto(78);
                 planeta.setPlaneta();
+                JLabel label = planeta.getPlanetaImagenYFondo();
+                planeta.configuracionPopup();
+//                label.getLocation().x
+//label.getLocation().y
+                ventanaInicioPrincipal.getPanelMapa().add(planeta.getPopupInfo(), new org.netbeans.lib.awtextra.AbsoluteConstraints(300,
+                                    300, 300, 125));
+                
+                setAccion(label,planeta.getPopupInfo(),planeta);
                 panel.add(planeta.getPanelPlaneta());
+                panel.doLayout();
                 panel.repaint();
                 System.out.println("longitud casillas" + casillasMapa.obtenerLongitud());
+                
             }
         } catch (ListaException e) {
             e.getMessage();
             e.printStackTrace();
         }
     }
+    
+    
+
+    
+    
+    
+    
+    
     public void agregarAccionesPlanetas(){
     }
 
-//    public void crearPosicionesAleatorias() {
-        
-//        try {
-//            posicionesAleatorias = new ListaEnlazada<>();
-//            boolean numeroRepetido=false;    
-//            Random random = new Random();
-//            planetasTotales = cantidadPN+cantidadPFantasmas+cantidadPZombies+jugadoresSeleccionados.obtenerLongitud();
-//            String numero = String.valueOf(random.nextInt(cantidadCasillas));
-//            posicionesAleatorias.agregar(numero);
+    
+    public void setAccion(JLabel planetaImagenYFondo, JTextArea popupInfo, Planeta planeta) {
+        planetaImagenYFondo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                planetaImagenYFondoMouseClicked(planeta);
+            }
+        });
+    } 
+    
+//            public void mouseEntered(java.awt.event.MouseEvent evt) {
+//                planetaImagenYFondoMouseEntered(evt);
+//            }
+//            public void mouseExited(java.awt.event.MouseEvent evt) {
+//                planetaImagenYFondoMouseExited(evt);
+//            }
 //
-//            for (int i = 0; i < planetasTotales; i++) {
-//                numeroRepetido=false;                    
-//                //
-//                do{
-//                    numero = String.valueOf(random.nextInt(cantidadCasillas));
-//                    int tamano = posicionesAleatorias.obtenerLongitud();
-//                    
-//                    for (int j = 0; j < cantidadCasillas; j++) {
-//                        String numeroEvaluar = posicionesAleatorias.obtenerContenido(i);
-//                        if(numero.equals(numeroEvaluar)){
-//                            numeroRepetido = true;
-//                        }
-//                    }
-//                }while(numeroRepetido);
-//                //
-//                posicionesAleatorias.agregar(numero);
+//            private void planetaImagenYFondoMouseClicked(MouseEvent evt) {
+//                JOptionPane.showMessageDialog(null, "Hola Mundo");
+//                throw new UnsupportedOperationException("Not supported yet."); 
 //            }
-//            //eliminar esto
-//            for (int k = 0; k < posicionesAleatorias.obtenerLongitud(); k++) {
-//                System.out.println("posicionesAAleatorias " + posicionesAleatorias.obtenerContenido(k));
+//
+//            private void planetaImagenYFondoMouseEntered(MouseEvent evt) {
+//                popupInfo.setVisible(true);
+//                throw new UnsupportedOperationException("Not supported yet.");             }
+//
+//            private void planetaImagenYFondoMouseExited(MouseEvent evt) {
+//                popupInfo.setVisible(false);
+//                throw new UnsupportedOperationException("Not supported yet."); 
 //            }
-//        } catch (ListaException e) {
-//            e.getMessage();
-//        }
-        
-//    }
+    
+    public void planetaImagenYFondoMouseClicked(Planeta planeta){
+        planetaSeleccionado = planeta.getPosicionInsertado();
+        System.out.println("Planeta selecionado" + planetaSeleccionado);
+    }
+    
     
     
     public void crearNOmbresAletoriosPlaneta(){
         nombrePlanetas.agregar("ABA");
+        nombrePlanetas.agregar("ABE");
         nombrePlanetas.agregar("ABI");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABE");
-        
+        nombrePlanetas.agregar("ABO");
+        nombrePlanetas.agregar("ACI");
+        nombrePlanetas.agregar("ACA");
+        nombrePlanetas.agregar("ACE");
+        nombrePlanetas.agregar("ACI");
+        nombrePlanetas.agregar("ACO");
+        nombrePlanetas.agregar("ACU");
+        nombrePlanetas.agregar("ADA");
+        nombrePlanetas.agregar("ADE");
+        nombrePlanetas.agregar("ADI");
+        nombrePlanetas.agregar("ADO");
+        nombrePlanetas.agregar("ADU");
+        nombrePlanetas.agregar("AEA");
+        nombrePlanetas.agregar("AEE");
+        nombrePlanetas.agregar("AEI");
+        nombrePlanetas.agregar("AEO");
+        nombrePlanetas.agregar("AEU");
     }
-    public  void generarNumeroRandom(){
+    
+    private  void generarNumeroRandom() {
         Random random = new Random();
         numeroAleatorio = random.nextInt(cantidadCasillas);
         System.out.println(numeroAleatorio);
     }
-    public  void verificarNoRepetir() {
+    
+    private void verificarNoRepetir() {
         contador++;
             boolean repetido = false;
             do{
@@ -265,7 +322,7 @@ public class MotorJuego {
             }while(repetido);
         numerosGenerados[contador]=numeroAleatorio;    
     }
-    
+
     public  void crearPosicionesAleatorios(){
         planetasTotales = cantidadPN+cantidadPFantasmas+cantidadPZombies+jugadoresSeleccionados.obtenerLongitud();
         numerosGenerados = new int[planetasTotales];
@@ -274,10 +331,7 @@ public class MotorJuego {
         }
         
     }
-    
-    
-    
-    
+
     
     
     

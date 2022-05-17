@@ -10,10 +10,14 @@ import java.awt.Color;
 public class Planetas_Neutrales extends Planeta{
 
     public Planetas_Neutrales() {
-        setTipoMapa("0.png");
+        setTipoPlaneta("0.png");
         setColorFondo(Color.WHITE);
+        setTextoNombre("EEE");
 
     }
+    
+    
+    
     
     
     

@@ -12,7 +12,7 @@ public class JugadorHumano extends Jugador {
     private static final String  TIPOJUGADOR = "Jugador(Humano)";
     
     public JugadorHumano() {
-        setTipoJugador(TIPOJUGADOR);
+        setTipoInteligencia(TIPOJUGADOR);
     }
 
 

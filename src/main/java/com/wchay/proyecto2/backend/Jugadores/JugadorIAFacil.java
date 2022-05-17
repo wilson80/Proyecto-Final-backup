@@ -11,7 +11,7 @@ public class JugadorIAFacil extends Jugador {
     private static final String  TIPOJUGADOR="Jugador(IAFacil)";
 
     public JugadorIAFacil() {
-        setTipoJugador(TIPOJUGADOR);
+        setTipoInteligencia(TIPOJUGADOR);
     
     }
 

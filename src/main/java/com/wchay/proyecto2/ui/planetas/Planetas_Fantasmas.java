@@ -1,6 +1,8 @@
 
 package com.wchay.proyecto2.ui.planetas;
 
+import java.awt.Color;
+
 /**
  *
  * @author Jonwil
@@ -8,7 +10,9 @@ package com.wchay.proyecto2.ui.planetas;
 public class Planetas_Fantasmas extends Planeta{
 
     public Planetas_Fantasmas() {
-        setTipoMapa("0.png");
+        setTipoPlaneta("0.png");
+        setColorFondo(Color.WHITE);
+        setTextoNombre("EEE");
     }
     
     

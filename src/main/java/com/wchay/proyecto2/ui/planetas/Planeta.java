@@ -1,48 +1,65 @@
 
 package com.wchay.proyecto2.ui.planetas;
 
+import com.wchay.proyecto2.ui.MapaPruebas;
 import com.wchay.proyecto2.ui.PanelPlaneta;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
 
 /**
  *
  * @author Jonwil
  */
-public class Planeta  {
-     private Color colorFondo;   
+public class Planeta implements Serializable{
+    
+    private static final long serialVersionUID=98L;
+     private int noCasilla;
+     private int loctionX;    
+     private int loctiony;    
+     private Color colorFondo;
      private JLabel nombrePlaneta;
-     private JLabel cantidadNaves;
+     private JLabel cantidadNavesLabel;
      private JLabel planetaImagenYFondo;   
-     private String conquistador;   
+     private JTextArea popupInfo;
+     private ImageIcon imagenPlaneta; 
+     private PanelPlaneta panelPlaneta;
+      
+     private String textoNombre;
+     private String dueño;  
+     private int cantidadNaves;
+     private int Produccion;
+     private double porcentajeMuertes;
+     
      private int posicionInsertado;   
      private int posicionFila;   
      private int posicionColumna;   
      private int ancho;    
      private int alto;    
      private String tipoPlaneta;
-     private ImageIcon imagenPlaneta; 
-     private PanelPlaneta panelPlaneta; 
     private static final String IMAGES_ROOT_PATH = "/imagenes/tiposPlanetas/";
 //               
     
     public Planeta() {
         panelPlaneta = new PanelPlaneta();
-        
+         
     }
     
-    
-     public void setPlaneta(){
-        nombrePlaneta = new JLabel("ABC");
+     public void setPlaneta() {//agrega el el Panel del Planeta a la casilla del Mapa
+        nombrePlaneta = new JLabel(textoNombre);
 //        nombrePlaneta.setBounds(0, 0, 40, 20);
-        cantidadNaves = new JLabel("123");
+        String cN = String.valueOf(cantidadNaves);
+        cantidadNavesLabel = new JLabel(cN);
 //        cantidadNaves.setBounds(30, 0, 40, 20);
         planetaImagenYFondo = new JLabel();
         planetaImagenYFondo.setBackground(colorFondo);
+//        planetaImagenYFondo.setBackground(colorFondo);
         planetaImagenYFondo.setOpaque(true);
 //        planetaImagenYFondo.setBounds(0, 20, 60, 60);
         
@@ -51,15 +68,52 @@ public class Planeta  {
         planetaImagenYFondo.setIcon(imagenPlaneta);
         
         panelPlaneta.add(nombrePlaneta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 20));
-        panelPlaneta.add(cantidadNaves,new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 40, 20));
+        panelPlaneta.add(cantidadNavesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 40, 20));
         panelPlaneta.add(planetaImagenYFondo,new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, ancho, alto));
         panelPlaneta.doLayout();
         panelPlaneta.repaint();
         
     }
      
-    
-    public void setTipoMapa(String nombreMapa) {
+//    public void setAccion() {
+//        planetaImagenYFondo.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                planetaImagenYFondoMouseClicked(evt);
+//            }
+//            public void mouseEntered(java.awt.event.MouseEvent evt) {
+//                planetaImagenYFondoMouseEntered(evt);
+//            }
+//            public void mouseExited(java.awt.event.MouseEvent evt) {
+//                planetaImagenYFondoMouseExited(evt);
+//            }
+//
+//            private void planetaImagenYFondoMouseClicked(MouseEvent evt) {
+//                
+//                throw new UnsupportedOperationException("Not supported yet."); 
+//            }
+//
+//            private void planetaImagenYFondoMouseEntered(MouseEvent evt) {
+//                popupInfo.setVisible(true);
+//                throw new UnsupportedOperationException("Not supported yet.");             }
+//
+//            private void planetaImagenYFondoMouseExited(MouseEvent evt) {
+//                popupInfo.setVisible(false);
+//                throw new UnsupportedOperationException("Not supported yet."); 
+//            }
+//        });
+//    } 
+     
+    public void configuracionPopup() {
+        popupInfo = new JTextArea();
+        popupInfo.setBorder(new LineBorder(Color.green));
+        popupInfo.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        popupInfo.setText(String.format("NOmbre Planeta: %s\nDueño:%s \nCantidad Naves: "
+                                        + "%d\nProduccion: %d\nPorcentaje de Muertes: %f"
+                                           ,textoNombre,dueño,cantidadNaves,Produccion,porcentajeMuertes));
+        popupInfo.setVisible(false);
+        popupInfo.setEditable(false);
+    } 
+    public void setTipoPlaneta(String nombreMapa) {
         this.tipoPlaneta = nombreMapa;
     }
     
@@ -91,17 +145,75 @@ public class Planeta  {
     }
 
     public void setConquistador(String conquistador) {
-        this.conquistador = conquistador;
+        this.dueño = conquistador;
     }
 
     public void setColorFondo(Color colorFondo) {
         this.colorFondo = colorFondo;
     }
+
+    public void setNombrePlaneta(String nombrePlaneta) {
+        this.nombrePlaneta.setText(nombrePlaneta);
+    }
+    public void setCantidadNavesLabel(String nombrePlaneta) {
+        this.cantidadNavesLabel.setText(nombrePlaneta);
+    }
+
+    public void setTextoNombre(String textoNombre) {
+        this.textoNombre = textoNombre;
+    }
+
+    public void setCantidadNavesLabel(JLabel cantidadNaves) {
+        this.cantidadNavesLabel = cantidadNaves;
+    }
+
+    public void setCantidadNaves(int cantidadNaves) {
+        this.cantidadNaves = cantidadNaves;
+    }
+
+    public void setDueño(String dueño) {
+        this.dueño = dueño;
+    }
+
+    public void setProduccion(int Produccion) {
+        this.Produccion = Produccion;
+    }
+
+    public void setPorcentajeMuertes(double porcentajeMuertes) {
+        this.porcentajeMuertes = porcentajeMuertes;
+    }
+
+    public void setLoctionX(int loctionX) {
+        this.loctionX = loctionX;
+    }
+
+    public void setLoctiony(int loctiony) {
+        this.loctiony = loctiony;
+    }
+
+    public JLabel getPlanetaImagenYFondo() {
+        return planetaImagenYFondo;
+    }
+
+    public JTextArea getPopupInfo() {
+        return popupInfo;
+    }
+
+    public void setPosicionInsertado(int posicionInsertado) {
+        this.posicionInsertado = posicionInsertado;
+    }
+
+    public int getPosicionInsertado() {
+        return posicionInsertado;
+    }
+
+    public double getPorcentajeMuertes() {
+        return porcentajeMuertes;
+    }
     
-   
     
     
-       
+    
     
     
 }

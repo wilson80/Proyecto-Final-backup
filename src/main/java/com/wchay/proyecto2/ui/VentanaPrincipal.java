@@ -2,26 +2,46 @@
 package com.wchay.proyecto2.ui;
 
 import com.wchay.proyecto2.backend.inicio_juego.AccionesConfiguraciones;
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
 
 public class VentanaPrincipal extends javax.swing.JFrame  {
     
     private AccionesConfiguraciones añadir;
 
-    
+//    JTextArea jo = new JTextArea();
     public VentanaPrincipal() {
         
         initComponents();
         añadir = new AccionesConfiguraciones(this);
         panelTurnoJugador.setVisible(false);
         panelMapa.setVisible(false);
-        TextAreaMensajes.setEnabled(false);
+        TextAreaMensajes.setEditable(false);
         TextAreaMensajes.setVisible(false);
         ScrollPaneAreaMensajes.setVisible(false);
+        
         añadirAcciones();
+        
+//        panelMapa.add(jo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 300, 125));
+//        panelMapa.setBorder(new LineBorder(Color.green));
+//        panelMapa.setFont(new java.awt.Font("Segoe UI", 1, 20));
+//        jo.setText(String.format("NOmbre Planeta: \nDueño: \nCantidad Naves: \nProduccion: \nPorcentaje de Muertes: "));
+//        jo.setEditable(false);
+//        jo.setVisible(false);
+//        panelMapa.doLayout();
+//        int d = panelMapa.getLocation().x;
+//        int e = panelMapa.getLocation().y;
+//        System.out.println("location x" +d);
+//        System.out.println("location y" +e);
+//        
+//        jo.doLayout();
+        
+        
+         
         
     }
 
@@ -42,6 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         ScrollPaneAreaMensajes = new javax.swing.JScrollPane();
         TextAreaMensajes = new javax.swing.JTextArea();
         pruebaTextArea = new javax.swing.JButton();
+        botonPruebaPOpup = new javax.swing.JButton();
         fondoInicio = new javax.swing.JLabel();
         menuBarraPrincipal = new javax.swing.JMenuBar();
         menuJuego = new javax.swing.JMenu();
@@ -170,18 +191,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
 
         panelMapa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 0), 1, true));
         panelMapa.setOpaque(false);
-
-        javax.swing.GroupLayout panelMapaLayout = new javax.swing.GroupLayout(panelMapa);
-        panelMapa.setLayout(panelMapaLayout);
-        panelMapaLayout.setHorizontalGroup(
-            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1468, Short.MAX_VALUE)
-        );
-        panelMapaLayout.setVerticalGroup(
-            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 538, Short.MAX_VALUE)
-        );
-
+        panelMapa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1470, 540));
 
         ScrollPaneAreaMensajes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 153), 2, true));
@@ -195,12 +205,36 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         getContentPane().add(ScrollPaneAreaMensajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 930, 130));
 
         pruebaTextArea.setText("jButton1");
+        pruebaTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pruebaTextAreaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pruebaTextAreaMouseExited(evt);
+            }
+        });
         pruebaTextArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pruebaTextAreaActionPerformed(evt);
             }
         });
         getContentPane().add(pruebaTextArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 640, 130, 60));
+
+        botonPruebaPOpup.setText("jButton1");
+        botonPruebaPOpup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonPruebaPOpupMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonPruebaPOpupMouseExited(evt);
+            }
+        });
+        botonPruebaPOpup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPruebaPOpupActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonPruebaPOpup, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 640, 100, 80));
 
         fondoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondos/fondoPrincipal.png"))); // NOI18N
         getContentPane().add(fondoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 770));
@@ -259,6 +293,32 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         TextAreaMensajes.setText("Wilson Chay");
     }//GEN-LAST:event_pruebaTextAreaActionPerformed
 
+    private void botonPruebaPOpupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPruebaPOpupActionPerformed
+         
+//        getContentPane().add(jo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 900, 300, 125));
+     
+       
+        
+        
+        
+    }//GEN-LAST:event_botonPruebaPOpupActionPerformed
+
+    private void pruebaTextAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pruebaTextAreaMouseEntered
+       
+    }//GEN-LAST:event_pruebaTextAreaMouseEntered
+
+    private void pruebaTextAreaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pruebaTextAreaMouseExited
+//        jo.setVisible(false);
+    }//GEN-LAST:event_pruebaTextAreaMouseExited
+
+    private void botonPruebaPOpupMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonPruebaPOpupMouseEntered
+//        jo.setVisible(true);
+    }//GEN-LAST:event_botonPruebaPOpupMouseEntered
+
+    private void botonPruebaPOpupMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonPruebaPOpupMouseExited
+//        jo.setVisible(false);
+    }//GEN-LAST:event_botonPruebaPOpupMouseExited
+
     public JPanel getPanelMapa() {
         return panelMapa;
     }
@@ -293,6 +353,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     private javax.swing.JButton botonMedirDistancias;
     private javax.swing.JButton botonMostrarOpciones1;
     private javax.swing.JButton botonPartidaNueva;
+    private javax.swing.JButton botonPruebaPOpup;
     private javax.swing.JButton botonVistaFlota;
     private javax.swing.JLabel fondoInicio;
     private javax.swing.JLabel jLabel1;

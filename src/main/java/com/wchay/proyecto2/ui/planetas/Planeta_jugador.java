@@ -1,6 +1,8 @@
 
 package com.wchay.proyecto2.ui.planetas;
 
+import java.awt.Color;
+
 /**
  *
  * @author Jonwil
@@ -8,9 +10,10 @@ package com.wchay.proyecto2.ui.planetas;
 public class Planeta_jugador extends Planeta{
 
     public Planeta_jugador() {
-    
-        
+       setTextoNombre("EEE");
     }
+    
+    
     
     
     

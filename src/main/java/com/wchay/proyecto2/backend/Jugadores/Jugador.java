@@ -19,9 +19,11 @@ public class Jugador  implements Serializable {
    
    private ListaEnlazada<Planeta> planetas_de_Jugador;
    
+   private String tipoPlanetaJugador;
    private Color colorJugador;
    private String nombreJugador;
-   private String tipoJugador;
+   private String tipoInteligencia;
+   private String tipoJugadorPlaneta;
    private String nombreNuevo; 
    private int numeroJugador=0;
    private panelNombreTipoJugador panelNombreTipo;
@@ -29,10 +31,10 @@ public class Jugador  implements Serializable {
    
     public Jugador() {
 //        labelEnPanelJugador = new String();  
-//         botonTipo = new String();
         panelNombreTipo = new panelNombreTipoJugador();
-        
+        planetas_de_Jugador = new ListaEnlazada<>();
         establecerNombresRandoms();
+        
     }
     
     public void establecerNombresRandoms() {
@@ -49,13 +51,11 @@ public class Jugador  implements Serializable {
             e.getMessage();
         }
     }
-    
     public void configurarPanelMostrarAñadirJugadores(){
         panelNombreTipo.getTituloNombreJugador().setText(nombreJugador);
-        panelNombreTipo.getBotonTipoJugador().setText(tipoJugador);
+        panelNombreTipo.getBotonTipoJugador().setText(tipoInteligencia);
         panelNombreTipo.doLayout();
     }
-    
 //    
     public String getNombreJugador() {
         return nombreJugador;
@@ -70,11 +70,11 @@ public class Jugador  implements Serializable {
     }
 //
     public void setTipoJugador(String tipoJugador) {
-        this.tipoJugador = tipoJugador;
+        this.tipoJugadorPlaneta = tipoJugador;
     }
 
     public String getTipoJugador() {
-        return tipoJugador;
+        return tipoJugadorPlaneta;
     }
 //
     public panelNombreTipoJugador getPanelJugador() {
@@ -84,10 +84,28 @@ public class Jugador  implements Serializable {
     public int getNumeroJugador() {
         return numeroJugador;
     }
-
     public void setNumeroJugador(int numeroJugador) {
         this.numeroJugador = numeroJugador;
     }
+    
+    public void setColorJugador(Color colorJugador) {
+        this.colorJugador = colorJugador;
+    }
+
+    public ListaEnlazada<Planeta> getPlanetas_de_Jugador() {
+        return planetas_de_Jugador;
+    }
+
+    public Color getColorJugador() {
+        return colorJugador;
+    }
+
+    public void setTipoInteligencia(String tipoInteligencia) {
+        this.tipoInteligencia = tipoInteligencia;
+    }
+    
+    
+    
 
     
     
