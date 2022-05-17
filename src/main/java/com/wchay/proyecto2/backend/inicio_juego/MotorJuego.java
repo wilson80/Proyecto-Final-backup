@@ -305,7 +305,7 @@ public class MotorJuego   {
                                 planetaOr=planeta.getPosicionEnLista();
                             }
                         }
-                        System.out.println("sdf");
+                        
                         String planetaSel = todosLosPlanetas.obtenerContenido(planetaOr).getTextoNombre();
                          planetaOseleccionado.setText(planetaSel);
                          planetaOrigen = planetaOr;
