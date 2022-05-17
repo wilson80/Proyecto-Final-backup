@@ -13,7 +13,7 @@ public class Planetas_Zombies extends Planeta{
     public Planetas_Zombies() {
         setTipoPlaneta("9.png");
         setColorFondo(Color.BLACK);
-        setTextoNombre("EEE");
+//        setTextoNombre("EEE");
     }
     
     

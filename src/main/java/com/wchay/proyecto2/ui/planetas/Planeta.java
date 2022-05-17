@@ -1,8 +1,9 @@
 
 package com.wchay.proyecto2.ui.planetas;
 
-import com.wchay.proyecto2.ui.MapaPruebas;
+
 import com.wchay.proyecto2.ui.PanelPlaneta;
+import com.wchay.proyecto2.ui.VentanaPrincipal;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -38,6 +39,7 @@ public class Planeta implements Serializable{
      private double porcentajeMuertes;
      
      private int posicionInsertado;   
+     private int posicionEnLista;   
      private int posicionFila;   
      private int posicionColumna;   
      private int ancho;    
@@ -48,7 +50,7 @@ public class Planeta implements Serializable{
     
     public Planeta() {
         panelPlaneta = new PanelPlaneta();
-         
+         planetaImagenYFondo = new JLabel();
     }
     
      public void setPlaneta() {//agrega el el Panel del Planeta a la casilla del Mapa
@@ -57,7 +59,7 @@ public class Planeta implements Serializable{
         String cN = String.valueOf(cantidadNaves);
         cantidadNavesLabel = new JLabel(cN);
 //        cantidadNaves.setBounds(30, 0, 40, 20);
-        planetaImagenYFondo = new JLabel();
+        
         planetaImagenYFondo.setBackground(colorFondo);
 //        planetaImagenYFondo.setBackground(colorFondo);
         planetaImagenYFondo.setOpaque(true);
@@ -75,43 +77,18 @@ public class Planeta implements Serializable{
         
     }
      
-//    public void setAccion() {
-//        planetaImagenYFondo.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                planetaImagenYFondoMouseClicked(evt);
-//            }
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                planetaImagenYFondoMouseEntered(evt);
-//            }
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                planetaImagenYFondoMouseExited(evt);
-//            }
-//
-//            private void planetaImagenYFondoMouseClicked(MouseEvent evt) {
-//                
-//                throw new UnsupportedOperationException("Not supported yet."); 
-//            }
-//
-//            private void planetaImagenYFondoMouseEntered(MouseEvent evt) {
-//                popupInfo.setVisible(true);
-//                throw new UnsupportedOperationException("Not supported yet.");             }
-//
-//            private void planetaImagenYFondoMouseExited(MouseEvent evt) {
-//                popupInfo.setVisible(false);
-//                throw new UnsupportedOperationException("Not supported yet."); 
-//            }
-//        });
-//    } 
      
     public void configuracionPopup() {
+//        panelMapa.add(panelMapa, new contr);
         popupInfo = new JTextArea();
-        popupInfo.setBorder(new LineBorder(Color.green));
-        popupInfo.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        popupInfo.setText(String.format("NOmbre Planeta: %s\nDueño:%s \nCantidad Naves: "
+//        popupInfo.setBorder(new LineBorder(Color.green));
+//        popupInfo.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        popupInfo.setText(String.format("NNNNNNNNNNOmbre Planeta: %s\nDueño:%s \nCantidad Naves: "
                                         + "%d\nProduccion: %d\nPorcentaje de Muertes: %f"
                                            ,textoNombre,dueño,cantidadNaves,Produccion,porcentajeMuertes));
         popupInfo.setVisible(false);
         popupInfo.setEditable(false);
+        
     } 
     public void setTipoPlaneta(String nombreMapa) {
         this.tipoPlaneta = nombreMapa;
@@ -210,7 +187,23 @@ public class Planeta implements Serializable{
     public double getPorcentajeMuertes() {
         return porcentajeMuertes;
     }
-    
+
+    public String getTextoNombre() {
+        return textoNombre;
+    }
+
+    public void setPosicionEnLista(int posicionEnLista) {
+        this.posicionEnLista = posicionEnLista;
+    }
+
+    public int getPosicionEnLista() {
+        return posicionEnLista;
+    }
+
+    public void setPlanetaImagenYFondo(JLabel planetaImagenYFondo) {
+        this.planetaImagenYFondo = planetaImagenYFondo;
+    }
+        
     
     
     

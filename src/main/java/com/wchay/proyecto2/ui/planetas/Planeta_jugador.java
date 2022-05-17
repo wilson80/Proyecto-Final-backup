@@ -10,7 +10,7 @@ import java.awt.Color;
 public class Planeta_jugador extends Planeta{
 
     public Planeta_jugador() {
-       setTextoNombre("EEE");
+//       setTextoNombre("EEE");
     }
     
     

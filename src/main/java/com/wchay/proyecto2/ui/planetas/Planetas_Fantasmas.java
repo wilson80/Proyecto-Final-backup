@@ -12,7 +12,7 @@ public class Planetas_Fantasmas extends Planeta{
     public Planetas_Fantasmas() {
         setTipoPlaneta("0.png");
         setColorFondo(Color.WHITE);
-        setTextoNombre("EEE");
+//        setTextoNombre("EEE");
     }
     
     

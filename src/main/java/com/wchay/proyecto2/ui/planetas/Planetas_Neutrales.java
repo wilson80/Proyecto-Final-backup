@@ -12,9 +12,11 @@ public class Planetas_Neutrales extends Planeta{
     public Planetas_Neutrales() {
         setTipoPlaneta("0.png");
         setColorFondo(Color.WHITE);
-        setTextoNombre("EEE");
+//        setTextoNombre("EEE");
 
     }
+    
+    
     
     
     

@@ -103,7 +103,7 @@ public class GuardarConfiguraciones {
             ObjectInputStream objetStream = new ObjectInputStream(fileInputStream);){
              mapaGuardado = (configuracionesMapa)objetStream.readObject();
              mapaGuardado.imprimirDatos();
-             mapaGuardado.imprimirNombreJugadores();
+             mapaGuardado.FuncionanCargarPartidas();
         } catch (Exception e){
             System.out.println("El archivo no existe");
             e.printStackTrace();

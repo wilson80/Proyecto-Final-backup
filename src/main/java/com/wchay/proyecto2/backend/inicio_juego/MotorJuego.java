@@ -5,7 +5,7 @@ import com.wchay.proyecto2.backend.listas_enlazadas.ListaEnlazada;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
 import com.wchay.proyecto2.backend.mapa.configuracionesMapa;
 import com.wchay.proyecto2.ui.ConfiguracionesPartidaNueva;
-import com.wchay.proyecto2.ui.MapaPruebas;
+
 import com.wchay.proyecto2.ui.PanelPlaneta;
 import com.wchay.proyecto2.ui.VentanaPrincipal;
 import com.wchay.proyecto2.ui.planetas.Planeta;
@@ -14,6 +14,7 @@ import com.wchay.proyecto2.ui.planetas.Planetas_Fantasmas;
 import com.wchay.proyecto2.ui.planetas.Planetas_Neutrales;
 import com.wchay.proyecto2.ui.planetas.Planetas_Zombies;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dialog;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -59,6 +60,7 @@ public class MotorJuego   {
     private ListaEnlazada<JPanel> casillasMapa;
     private ListaEnlazada<String> posicionesAleatorias;
     private ListaEnlazada<String> nombrePlanetas;
+    private ListaEnlazada<Planeta> todosLosPlanetas;
     private ListaEnlazada<String> planetasNeutrales;
     private ListaEnlazada<String> planetasFantasmas;
     private ListaEnlazada<String> planetasZombies;
@@ -68,9 +70,21 @@ public class MotorJuego   {
     private  int numeroAleatorio;
     private  int contador =-1;
     private  int [] numerosGenerados;
+    private  String [] nombresAleatorios;
     private int planetaSeleccionado;
-     
+    private JPanel panelMapa;
+    private JButton botonPlanetaOrigen;
+    private JButton botonPlanetaDestino;
+    private JButton botonMedirDistancias;
+    private JLabel planetaOseleccionado;
+    private JLabel planetaDseleccionado;
+    
+    private int hayPlanetaSeleccionado=0; 
      //
+    private int planetaOrigen;    
+    private int planetaDestino;    
+    private int planetas_a_Medir;    
+    //
     public MotorJuego(configuracionesMapa iniciarMapa, VentanaPrincipal ventanaInicioPrincipal, ListaEnlazada<Jugador> jugadoresSeleccionados, ConfiguracionesPartidaNueva configuracionPartida, String nombreMapa, int filas, int columnas, int turnosMaximos, boolean Al_Azar, int tipoMapa, int cantidadPFantasmas, int cantidadPZombies, boolean procuccionAcumulativa, boolean procuccionTrascaptura, boolean mapaCiego, int cantidadPN, boolean mostrarNaves, boolean mostrarAtributos, int produccionPN) {
         this.iniciarMapa = iniciarMapa;
         this.ventanaInicioPrincipal = ventanaInicioPrincipal;
@@ -98,6 +112,12 @@ public class MotorJuego   {
     
     
     public void inicializar() {
+        todosLosPlanetas = new ListaEnlazada<>();
+        botonPlanetaOrigen = ventanaInicioPrincipal.getBotonPlanetaOrigen();
+        botonPlanetaDestino = ventanaInicioPrincipal.getBotonPlanetaDestino();
+        botonMedirDistancias = ventanaInicioPrincipal.getBotonMedirDistancias();
+        planetaOseleccionado = ventanaInicioPrincipal.getPlanetaOseleccionado();
+        planetaDseleccionado = ventanaInicioPrincipal.getPlanetaDseleccionado();
         configuracionPartida.setVisible(false);
         ventanaInicioPrincipal.setEnabled(true);
         ventanaInicioPrincipal.getTextAreaMensajes().setVisible(true);
@@ -106,21 +126,21 @@ public class MotorJuego   {
         ventanaInicioPrincipal.getBotonPartidaNueva().setEnabled(false);
     }
     
-    public void crearMapa(){
+    public void crearMapa() {
+        
         GridLayout cuadricula = new GridLayout(0, columnas);
         contenedorCasillas = new JPanel();
         contenedorCasillas.setBorder(new LineBorder(Color.PINK, 3, true));
         contenedorCasillas.setVisible(true);
         contenedorCasillas.setLayout(cuadricula);
         contenedorCasillas.setOpaque(false);
-        JPanel panelMapa = ventanaInicioPrincipal.getPanelMapa(); ///////////
+        panelMapa = ventanaInicioPrincipal.getPanelMapa(); ///////////
         panelMapa.add(contenedorCasillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 1, 800, 540));
         //rectangular
 //        mapaPruebas.setBounds(100, 1, 1200, 540);
           //cuadrado  
 //          contenedorCasillas.setBounds(100, 1, 800, 540);
         cantidadCasillas = (filas*columnas); //cantidad de casillas en el mapa
-        
       crearPosicionesAleatorios();
         casillasMapa = new ListaEnlazada<>();  
         //creando Casillas
@@ -143,14 +163,14 @@ public class MotorJuego   {
             e.printStackTrace();
         }
         
-        
-                ///////////Absolute Layot
         panelMapa.setVisible(true);
         ventanaInicioPrincipal.getPanelTurno().setVisible(true);
         panelMapa.doLayout();
-        
         ventanaInicioPrincipal.doLayout();
-
+        //Acciones
+        seleccionarPlanetaOrigen();
+        seleccionarPlanetaDestino();
+        botonMedirDistancias();
     }
     
     public void agregarPlanetasCasillasAleatorias() {
@@ -183,9 +203,6 @@ public class MotorJuego   {
         }
     }
     
-    
-    
-    
     public void AñadirPlanetas_a_Mapa(int cantidadInicio, int cantidadFin, ListaEnlazada lista, int quePlaneta, Planeta planeta) {
         try {
             for (int i = cantidadInicio; i < cantidadFin; i++) {
@@ -193,113 +210,219 @@ public class MotorJuego   {
                 if(quePlaneta<=3){
                     if(quePlaneta==1){
                      planeta =new Planetas_Neutrales();
+                     asignarNOmbreJugador(i, planeta);
                     }else if(quePlaneta==2) {
                         planeta = new Planetas_Fantasmas();
+                        asignarNOmbreJugador(i, planeta);
                     }else {
                          planeta = new Planetas_Zombies();
+                         asignarNOmbreJugador(i, planeta);
                     }
+                    asignarNOmbreJugador(i, planeta);
                     lista = new ListaEnlazada();
                     lista.agregar(planeta);
 //                    planeta.setAccion();
                 }
+                //arreglo de Todos los Planetas
+                todosLosPlanetas.agregar(planeta);
                         //Agregando el Planeta a su Lista
                 
     //            planeta = new Planetas_Neutrales();
                 
                 int posicionAleatoria = numerosGenerados[i];
-                JPanel panel = casillasMapa.obtenerContenido(posicionAleatoria);
+                JPanel panelCasilla = casillasMapa.obtenerContenido(posicionAleatoria);
                 planeta.setPosicionInsertado(posicionAleatoria);
+                planeta.setPosicionEnLista(i);
+                
+                
                 planeta.setAncho(78);
                 planeta.setAlto(78);
                 planeta.setPlaneta();
-                JLabel label = planeta.getPlanetaImagenYFondo();
+                JLabel imagenYFondo = planeta.getPlanetaImagenYFondo();
+                imagenYFondo.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 planeta.configuracionPopup();
-//                label.getLocation().x
-//label.getLocation().y
-                ventanaInicioPrincipal.getPanelMapa().add(planeta.getPopupInfo(), new org.netbeans.lib.awtextra.AbsoluteConstraints(300,
-                                    300, 300, 125));
                 
-                setAccion(label,planeta.getPopupInfo(),planeta);
-                panel.add(planeta.getPanelPlaneta());
-                panel.doLayout();
-                panel.repaint();
+                panelCasilla.add(planeta.getPanelPlaneta());
+                planeta.configuracionPopup();
+                setAccionPlanetaSeleccionado(imagenYFondo,planeta);
+                panelMapa.add(planeta.getPopupInfo(), new org.netbeans.lib.awtextra.AbsoluteConstraints(panelCasilla.getLocation().x+900,
+                                    panelCasilla.getLocation().y, 300, 100));
+                panelCasilla.doLayout();
+                panelCasilla.repaint();
                 System.out.println("longitud casillas" + casillasMapa.obtenerLongitud());
                 
             }
+                 
+                 
+
         } catch (ListaException e) {
             e.getMessage();
             e.printStackTrace();
         }
     }
-    
-    
 
     
-    
-    
-    
-    
-    public void agregarAccionesPlanetas(){
-    }
-
-    
-    public void setAccion(JLabel planetaImagenYFondo, JTextArea popupInfo, Planeta planeta) {
+    public void setAccionPlanetaSeleccionado(JLabel planetaImagenYFondo, Planeta planeta) {
         planetaImagenYFondo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                planetaImagenYFondoMouseClicked(planeta);
+                planetaImagenYFondoMouseClicked(evt,planeta);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                planetaImagenYFondoMouseExited(evt);
+            }
+
+            private void planetaImagenYFondoMouseClicked(MouseEvent evt, Planeta planeta) {
+                 if(evt.getClickCount()==2){
+                     hayPlanetaSeleccionado++;
+                     planetaSeleccionado = planeta.getPosicionInsertado();
+                     System.out.println("Planeta Selecionado" + planetaSeleccionado);
+                 }else if(evt.getClickCount()==1){
+                    planeta.getPopupInfo().setVisible(true);
+                 }
+            }
+            private void planetaImagenYFondoMouseExited(MouseEvent evt) {
+                planeta.getPopupInfo().setVisible(false);
             }
         });
     } 
     
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                planetaImagenYFondoMouseEntered(evt);
-//            }
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                planetaImagenYFondoMouseExited(evt);
-//            }
-//
-//            private void planetaImagenYFondoMouseClicked(MouseEvent evt) {
-//                JOptionPane.showMessageDialog(null, "Hola Mundo");
-//                throw new UnsupportedOperationException("Not supported yet."); 
-//            }
-//
-//            private void planetaImagenYFondoMouseEntered(MouseEvent evt) {
-//                popupInfo.setVisible(true);
-//                throw new UnsupportedOperationException("Not supported yet.");             }
-//
-//            private void planetaImagenYFondoMouseExited(MouseEvent evt) {
-//                popupInfo.setVisible(false);
-//                throw new UnsupportedOperationException("Not supported yet."); 
-//            }
     
-    public void planetaImagenYFondoMouseClicked(Planeta planeta){
-        planetaSeleccionado = planeta.getPosicionInsertado();
-        System.out.println("Planeta selecionado" + planetaSeleccionado);
+    public void seleccionarPlanetaOrigen() {
+        botonPlanetaOrigen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonPlanetaOrigenMouseClicked(evt);
+            }
+            private void botonPlanetaOrigenMouseClicked(MouseEvent evt) {
+                int lista;
+                int planetaOr=0;
+                if(hayPlanetaSeleccionado==1){
+                    try {
+                        hayPlanetaSeleccionado=2;
+                        planetas_a_Medir=1;
+                        
+                        for (int i = 0; i < todosLosPlanetas.obtenerLongitud(); i++) {
+                            Planeta planeta = todosLosPlanetas.obtenerContenido(i);
+                             lista = planeta.getPosicionEnLista();
+                            if(lista==planetaSeleccionado){
+                                planetaOr=lista;
+                            } 
+                        }
+                        
+                        String planetaSel = todosLosPlanetas.obtenerContenido(planetaOr).getTextoNombre();
+                         planetaOseleccionado.setText(planetaSel);
+                         planetaOrigen = planetaOr;
+                    } catch (ListaException e) {
+                        e.getMessage();
+                    }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "no ha seleccionado un planeta\nSeleccione un planeta dando doble click");
+                }
+                
+            }
+        });
+    } 
+    
+    public void seleccionarPlanetaDestino() {
+        botonPlanetaDestino.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonPlanetaDestinoMouseClicked(evt);
+            }
+  
+            private void botonPlanetaDestinoMouseClicked(MouseEvent evt) {
+                int lista;
+                int planetadesDes=0;
+                if(hayPlanetaSeleccionado>1) {
+                    try {
+                        planetas_a_Medir=2;
+                        
+                        for (int i = 0; i < todosLosPlanetas.obtenerLongitud(); i++) {
+                            Planeta planeta = todosLosPlanetas.obtenerContenido(i);
+                             lista = planeta.getPosicionEnLista();
+                            if(lista==planetaSeleccionado){
+                                planetadesDes=lista;
+                            } 
+                        }
+                        
+                        String planetaSel = todosLosPlanetas.obtenerContenido(planetadesDes).getTextoNombre();
+                         planetaDseleccionado.setText(planetaSel);
+                         planetaDestino = planetadesDes;
+                    } catch (ListaException e) {
+                        e.getMessage();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "no ha seleccionado un planeta de origen \nSeleccione un planeta dando doble click");
+                }
+                
+            }
+        });
+    } 
+    
+    public void botonMedirDistancias() {
+        botonMedirDistancias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonMedirDistanciasMouseClicked(evt);
+            }
+  
+            private void botonMedirDistanciasMouseClicked(MouseEvent evt) {
+                if(planetas_a_Medir==2){
+                    JOptionPane.showMessageDialog(null, "La diastancia entre el planeta:  al Planeta:  es de1 Años luz",
+                            "Distancia entre Planetas", JOptionPane.INFORMATION_MESSAGE);
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Selecione Primero un Planeta de Origen Luego uno de destino");
+                }
+                
+            }
+        });
+    } 
+    
+    
+    public void asignarNOmbreJugador(int i, Planeta planeta){
+        crearNOmbresAletoriosPlaneta();
+        try {
+            planeta.setTextoNombre(nombresAleatorios[i]);
+            planeta.setCantidadNavesLabel("5");
+            planeta.setProduccion(5);
+            planeta.setPorcentajeMuertes(0.4);
+            
+        } catch (Exception e) {
+        }
+        
     }
     
-    
-    
-    public void crearNOmbresAletoriosPlaneta(){
-        nombrePlanetas.agregar("ABA");
-        nombrePlanetas.agregar("ABE");
-        nombrePlanetas.agregar("ABI");
-        nombrePlanetas.agregar("ABO");
-        nombrePlanetas.agregar("ACI");
-        nombrePlanetas.agregar("ACA");
-        nombrePlanetas.agregar("ACE");
-        nombrePlanetas.agregar("ACI");
-        nombrePlanetas.agregar("ACO");
-        nombrePlanetas.agregar("ACU");
-        nombrePlanetas.agregar("ADA");
-        nombrePlanetas.agregar("ADE");
-        nombrePlanetas.agregar("ADI");
-        nombrePlanetas.agregar("ADO");
-        nombrePlanetas.agregar("ADU");
-        nombrePlanetas.agregar("AEA");
-        nombrePlanetas.agregar("AEE");
-        nombrePlanetas.agregar("AEI");
-        nombrePlanetas.agregar("AEO");
-        nombrePlanetas.agregar("AEU");
+    private void crearNOmbresAletoriosPlaneta(){
+       nombresAleatorios = new String[30];
+       nombresAleatorios[0]="A";
+       nombresAleatorios[1]="B";
+       nombresAleatorios[2]="C";
+       nombresAleatorios[3]="D";
+       nombresAleatorios[4]="E";
+       nombresAleatorios[5]="E";
+       nombresAleatorios[6]="F";
+       nombresAleatorios[7]="G";
+       nombresAleatorios[8]="H";
+       nombresAleatorios[9]="I";
+       nombresAleatorios[0]="K";
+       nombresAleatorios[11]="L";
+       nombresAleatorios[12]="M";
+       nombresAleatorios[13]="N";
+       nombresAleatorios[14]="O";
+       nombresAleatorios[15]="AP";
+       nombresAleatorios[16]="Q";
+       nombresAleatorios[17]="R";
+       nombresAleatorios[18]="A";
+       nombresAleatorios[19]="T";
+       nombresAleatorios[20]="AU";
+       nombresAleatorios[21]="U";
+       nombresAleatorios[22]="V";
+       nombresAleatorios[23]="W";
+       nombresAleatorios[24]="X";
+       nombresAleatorios[25]="Y";
+       nombresAleatorios[26]="Z";
+       nombresAleatorios[27]="AZ";
+       nombresAleatorios[28]="AM";
+       nombresAleatorios[29]="AMI";
     }
     
     private  void generarNumeroRandom() {
@@ -331,6 +454,9 @@ public class MotorJuego   {
         }
         
     }
+    
+        
+    
 
     
     

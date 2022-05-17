@@ -4,6 +4,7 @@ package com.wchay.proyecto2.ui;
 import com.wchay.proyecto2.backend.inicio_juego.AccionesConfiguraciones;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -13,7 +14,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     
     private AccionesConfiguraciones añadir;
 
-//    JTextArea jo = new JTextArea();
+    JTextArea popupPrincipal;
     public VentanaPrincipal() {
         
         initComponents();
@@ -25,23 +26,20 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         ScrollPaneAreaMensajes.setVisible(false);
         
         añadirAcciones();
+        popupPrincipal = new JTextArea();
+        panelMapa.add(popupPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 300, 125));
+        panelMapa.setBorder(new LineBorder(Color.green));
+        panelMapa.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        popupPrincipal.setText(String.format("NOmbre Planeta: \nDueño: \nCantidad Naves: \nProduccion: \nPorcentaje de Muertes: "));
+        popupPrincipal.setEditable(false);
+        popupPrincipal.setVisible(false);
+        panelMapa.doLayout();
+        int d = panelMapa.getLocation().x;
+        int e = panelMapa.getLocation().y;
+        System.out.println("location x" +d);
+        System.out.println("location y" +e);
         
-//        panelMapa.add(jo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 300, 125));
-//        panelMapa.setBorder(new LineBorder(Color.green));
-//        panelMapa.setFont(new java.awt.Font("Segoe UI", 1, 20));
-//        jo.setText(String.format("NOmbre Planeta: \nDueño: \nCantidad Naves: \nProduccion: \nPorcentaje de Muertes: "));
-//        jo.setEditable(false);
-//        jo.setVisible(false);
-//        panelMapa.doLayout();
-//        int d = panelMapa.getLocation().x;
-//        int e = panelMapa.getLocation().y;
-//        System.out.println("location x" +d);
-//        System.out.println("location y" +e);
-//        
-//        jo.doLayout();
-        
-        
-         
+        popupPrincipal.doLayout();
         
     }
 
@@ -54,15 +52,18 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         botonFinalizarPartida = new javax.swing.JButton();
         botonVistaFlota = new javax.swing.JButton();
         botonMedirDistancias = new javax.swing.JButton();
-        botonFinTurno2 = new javax.swing.JButton();
+        botonFinTurno = new javax.swing.JButton();
         botonMostrarOpciones1 = new javax.swing.JButton();
         panelTurnoJugador = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        tituloTurno = new javax.swing.JLabel();
+        botonPlanetaOrigen = new javax.swing.JButton();
+        botonPlanetaDestino = new javax.swing.JButton();
+        panelJugador_en_Turno = new javax.swing.JPanel();
+        planetaOseleccionado = new javax.swing.JLabel();
+        planetaDseleccionado = new javax.swing.JLabel();
         panelMapa = new javax.swing.JPanel();
         ScrollPaneAreaMensajes = new javax.swing.JScrollPane();
         TextAreaMensajes = new javax.swing.JTextArea();
-        pruebaTextArea = new javax.swing.JButton();
-        botonPruebaPOpup = new javax.swing.JButton();
         fondoInicio = new javax.swing.JLabel();
         menuBarraPrincipal = new javax.swing.JMenuBar();
         menuJuego = new javax.swing.JMenu();
@@ -115,12 +116,12 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         botonMedirDistancias.setBorder(null);
         botonMedirDistancias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        botonFinTurno2.setBackground(new java.awt.Color(0, 0, 51));
-        botonFinTurno2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        botonFinTurno2.setForeground(new java.awt.Color(255, 255, 255));
-        botonFinTurno2.setText("Fin del Turno");
-        botonFinTurno2.setBorder(null);
-        botonFinTurno2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonFinTurno.setBackground(new java.awt.Color(0, 0, 51));
+        botonFinTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonFinTurno.setForeground(new java.awt.Color(255, 255, 255));
+        botonFinTurno.setText("Fin del Turno");
+        botonFinTurno.setBorder(null);
+        botonFinTurno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         botonMostrarOpciones1.setBackground(new java.awt.Color(0, 0, 51));
         botonMostrarOpciones1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -139,7 +140,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonFinalizarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(botonFinTurno2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonFinTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonMedirDistancias, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -157,7 +158,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
                     .addComponent(botonFinalizarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonPartidaNueva)
                     .addComponent(botonMedirDistancias)
-                    .addComponent(botonFinTurno2)
+                    .addComponent(botonFinTurno)
                     .addComponent(botonMostrarOpciones1))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
@@ -166,9 +167,22 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
 
         panelTurnoJugador.setBackground(new java.awt.Color(102, 0, 102));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Turno Jugador :");
+        tituloTurno.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        tituloTurno.setForeground(new java.awt.Color(255, 255, 255));
+        tituloTurno.setText("Turno Jugador :");
+
+        botonPlanetaOrigen.setText("SeleccionarComoPlaneta Origen");
+
+        botonPlanetaDestino.setText("SeleccionarComo Planeta Destino");
+
+        panelJugador_en_Turno.setBackground(new java.awt.Color(0, 0, 0));
+        panelJugador_en_Turno.setLayout(new javax.swing.BoxLayout(panelJugador_en_Turno, javax.swing.BoxLayout.LINE_AXIS));
+
+        planetaOseleccionado.setForeground(new java.awt.Color(255, 255, 255));
+        planetaOseleccionado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        planetaDseleccionado.setForeground(new java.awt.Color(255, 255, 255));
+        planetaDseleccionado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout panelTurnoJugadorLayout = new javax.swing.GroupLayout(panelTurnoJugador);
         panelTurnoJugador.setLayout(panelTurnoJugadorLayout);
@@ -176,14 +190,35 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
             panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTurnoJugadorLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addContainerGap(1391, Short.MAX_VALUE))
+                .addComponent(tituloTurno)
+                .addGap(46, 46, 46)
+                .addComponent(panelJugador_en_Turno, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(botonPlanetaOrigen)
+                .addGap(18, 18, 18)
+                .addComponent(planetaOseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonPlanetaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(planetaDseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(243, Short.MAX_VALUE))
         );
         panelTurnoJugadorLayout.setVerticalGroup(
             panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTurnoJugadorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelJugador_en_Turno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tituloTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addGroup(panelTurnoJugadorLayout.createSequentialGroup()
+                        .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botonPlanetaOrigen)
+                                .addComponent(planetaOseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botonPlanetaDestino)
+                                .addComponent(planetaDseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -203,38 +238,6 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         ScrollPaneAreaMensajes.setViewportView(TextAreaMensajes);
 
         getContentPane().add(ScrollPaneAreaMensajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 930, 130));
-
-        pruebaTextArea.setText("jButton1");
-        pruebaTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pruebaTextAreaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pruebaTextAreaMouseExited(evt);
-            }
-        });
-        pruebaTextArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pruebaTextAreaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(pruebaTextArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 640, 130, 60));
-
-        botonPruebaPOpup.setText("jButton1");
-        botonPruebaPOpup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botonPruebaPOpupMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botonPruebaPOpupMouseExited(evt);
-            }
-        });
-        botonPruebaPOpup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPruebaPOpupActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonPruebaPOpup, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 640, 100, 80));
 
         fondoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondos/fondoPrincipal.png"))); // NOI18N
         getContentPane().add(fondoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 770));
@@ -288,37 +291,6 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     private void botonFinalizarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarPartidaActionPerformed
     }//GEN-LAST:event_botonFinalizarPartidaActionPerformed
 
-    private void pruebaTextAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pruebaTextAreaActionPerformed
-//        TextAreaMensajes.setEnabled(false);
-        TextAreaMensajes.setText("Wilson Chay");
-    }//GEN-LAST:event_pruebaTextAreaActionPerformed
-
-    private void botonPruebaPOpupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPruebaPOpupActionPerformed
-         
-//        getContentPane().add(jo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 900, 300, 125));
-     
-       
-        
-        
-        
-    }//GEN-LAST:event_botonPruebaPOpupActionPerformed
-
-    private void pruebaTextAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pruebaTextAreaMouseEntered
-       
-    }//GEN-LAST:event_pruebaTextAreaMouseEntered
-
-    private void pruebaTextAreaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pruebaTextAreaMouseExited
-//        jo.setVisible(false);
-    }//GEN-LAST:event_pruebaTextAreaMouseExited
-
-    private void botonPruebaPOpupMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonPruebaPOpupMouseEntered
-//        jo.setVisible(true);
-    }//GEN-LAST:event_botonPruebaPOpupMouseEntered
-
-    private void botonPruebaPOpupMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonPruebaPOpupMouseExited
-//        jo.setVisible(false);
-    }//GEN-LAST:event_botonPruebaPOpupMouseExited
-
     public JPanel getPanelMapa() {
         return panelMapa;
     }
@@ -343,20 +315,49 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         return ScrollPaneAreaMensajes;
     }
 
+    public JTextArea getPopupPrincipal() {
+        return popupPrincipal;
+    }
+
+    public JButton getBotonMedirDistancias() {
+        return botonMedirDistancias;
+    }
+
+    public JButton getBotonPlanetaOrigen() {
+        return botonPlanetaOrigen;
+    }
+
+    public JButton getBotonPlanetaDestino() {
+        return botonPlanetaDestino;
+    }
+
+    public JLabel getPlanetaOseleccionado() {
+        return planetaOseleccionado;
+    }
+
+    public JLabel getPlanetaDseleccionado() {
+        return planetaDseleccionado;
+    }
+
+    public JButton getBotonFinTurno() {
+        return botonFinTurno;
+    }
+    
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneAreaMensajes;
     private javax.swing.JTextArea TextAreaMensajes;
-    private javax.swing.JButton botonFinTurno2;
+    private javax.swing.JButton botonFinTurno;
     private javax.swing.JButton botonFinalizarPartida;
     private javax.swing.JButton botonMedirDistancias;
     private javax.swing.JButton botonMostrarOpciones1;
     private javax.swing.JButton botonPartidaNueva;
-    private javax.swing.JButton botonPruebaPOpup;
+    private javax.swing.JButton botonPlanetaDestino;
+    private javax.swing.JButton botonPlanetaOrigen;
     private javax.swing.JButton botonVistaFlota;
     private javax.swing.JLabel fondoInicio;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuBar menuBarraPrincipal;
     private javax.swing.JMenuItem menuCargarPartida;
@@ -365,9 +366,12 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     private javax.swing.JMenu menuPreferencias;
     private javax.swing.JMenuItem menuReplay;
     private javax.swing.JMenu menuVer;
+    private javax.swing.JPanel panelJugador_en_Turno;
     private javax.swing.JPanel panelMapa;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JPanel panelTurnoJugador;
-    private javax.swing.JButton pruebaTextArea;
+    private javax.swing.JLabel planetaDseleccionado;
+    private javax.swing.JLabel planetaOseleccionado;
+    private javax.swing.JLabel tituloTurno;
     // End of variables declaration//GEN-END:variables
 }

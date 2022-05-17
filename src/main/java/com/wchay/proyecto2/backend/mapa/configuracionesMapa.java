@@ -70,7 +70,7 @@ public class configuracionesMapa implements Serializable {
     }
     
     
-    public void imprimirNombreJugadores() {
+    public void FuncionanCargarPartidas() {
         System.out.println("NOmbreJUgadoresssssssss");
         for (int i = 0; i < 10; i++) {
             try {
@@ -79,9 +79,20 @@ public class configuracionesMapa implements Serializable {
             } catch (Exception e) {
             }
         }
-        
-        
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
  
     
