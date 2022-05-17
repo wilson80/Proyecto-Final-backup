@@ -51,6 +51,7 @@ public class Planeta implements Serializable{
     public Planeta() {
         panelPlaneta = new PanelPlaneta();
          planetaImagenYFondo = new JLabel();
+         
     }
     
      public void setPlaneta() {//agrega el el Panel del Planeta a la casilla del Mapa
@@ -83,7 +84,7 @@ public class Planeta implements Serializable{
         popupInfo = new JTextArea();
 //        popupInfo.setBorder(new LineBorder(Color.green));
 //        popupInfo.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        popupInfo.setText(String.format("NNNNNNNNNNOmbre Planeta: %s\nDueño:%s \nCantidad Naves: "
+        popupInfo.setText(String.format("NOmbre Planeta: %s\nDueño:%s \nCantidad Naves: "
                                         + "%d\nProduccion: %d\nPorcentaje de Muertes: %f"
                                            ,textoNombre,dueño,cantidadNaves,Produccion,porcentajeMuertes));
         popupInfo.setVisible(false);

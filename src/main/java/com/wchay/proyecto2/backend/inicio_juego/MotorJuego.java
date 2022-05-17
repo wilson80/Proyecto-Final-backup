@@ -79,8 +79,9 @@ public class MotorJuego   {
     private JLabel planetaOseleccionado;
     private JLabel planetaDseleccionado;
     
-    private int hayPlanetaSeleccionado=0; 
+    
      //
+    private int hayPlanetaSeleccionado=0; 
     private int planetaOrigen;    
     private int planetaDestino;    
     private int planetas_a_Medir;    
@@ -172,7 +173,7 @@ public class MotorJuego   {
         seleccionarPlanetaDestino();
         botonMedirDistancias();
     }
-    
+//_________________________________________________________________    
     public void agregarPlanetasCasillasAleatorias() {
         //planetas neutrales, fantasmas, y Zombies
         Planeta noUso = new Planeta();
@@ -202,6 +203,7 @@ public class MotorJuego   {
             e.printStackTrace();
         }
     }
+
     
     public void AñadirPlanetas_a_Mapa(int cantidadInicio, int cantidadFin, ListaEnlazada lista, int quePlaneta, Planeta planeta) {
         try {
@@ -210,13 +212,10 @@ public class MotorJuego   {
                 if(quePlaneta<=3){
                     if(quePlaneta==1){
                      planeta =new Planetas_Neutrales();
-                     asignarNOmbreJugador(i, planeta);
                     }else if(quePlaneta==2) {
                         planeta = new Planetas_Fantasmas();
-                        asignarNOmbreJugador(i, planeta);
                     }else {
                          planeta = new Planetas_Zombies();
-                         asignarNOmbreJugador(i, planeta);
                     }
                     asignarNOmbreJugador(i, planeta);
                     lista = new ListaEnlazada();
@@ -252,16 +251,15 @@ public class MotorJuego   {
                 System.out.println("longitud casillas" + casillasMapa.obtenerLongitud());
                 
             }
-                 
-                 
-
+            
         } catch (ListaException e) {
             e.getMessage();
             e.printStackTrace();
         }
     }
 
-    
+    //_________________________________________________________________    
+
     public void setAccionPlanetaSeleccionado(JLabel planetaImagenYFondo, Planeta planeta) {
         planetaImagenYFondo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -273,14 +271,14 @@ public class MotorJuego   {
 
             private void planetaImagenYFondoMouseClicked(MouseEvent evt, Planeta planeta) {
                  if(evt.getClickCount()==2){
-                     hayPlanetaSeleccionado++;
-                     planetaSeleccionado = planeta.getPosicionInsertado();
+                     hayPlanetaSeleccionado=1;
+                     planetaSeleccionado = planeta.getPosicionInsertado();      //Marcar PlanetaSeleccionado    
                      System.out.println("Planeta Selecionado" + planetaSeleccionado);
                  }else if(evt.getClickCount()==1){
-                    planeta.getPopupInfo().setVisible(true);
+                    planeta.getPopupInfo().setVisible(true);                    //mostrar Popup
                  }
             }
-            private void planetaImagenYFondoMouseExited(MouseEvent evt) {
+            private void planetaImagenYFondoMouseExited(MouseEvent evt) {       //ocultar Popup
                 planeta.getPopupInfo().setVisible(false);
             }
         });
@@ -302,10 +300,10 @@ public class MotorJuego   {
                         
                         for (int i = 0; i < todosLosPlanetas.obtenerLongitud(); i++) {
                             Planeta planeta = todosLosPlanetas.obtenerContenido(i);
-                             lista = planeta.getPosicionEnLista();
+                             lista = planeta.getPosicionInsertado();
                             if(lista==planetaSeleccionado){
-                                planetaOr=lista;
-                            } 
+                                planetaOr=planeta.getPosicionEnLista();
+                            }
                         }
                         
                         String planetaSel = todosLosPlanetas.obtenerContenido(planetaOr).getTextoNombre();
@@ -332,15 +330,15 @@ public class MotorJuego   {
             private void botonPlanetaDestinoMouseClicked(MouseEvent evt) {
                 int lista;
                 int planetadesDes=0;
-                if(hayPlanetaSeleccionado>1) {
+                if(hayPlanetaSeleccionado==1) {
                     try {
                         planetas_a_Medir=2;
                         
                         for (int i = 0; i < todosLosPlanetas.obtenerLongitud(); i++) {
                             Planeta planeta = todosLosPlanetas.obtenerContenido(i);
-                             lista = planeta.getPosicionEnLista();
+                             lista = planeta.getPosicionInsertado();
                             if(lista==planetaSeleccionado){
-                                planetadesDes=lista;
+                                planetadesDes=planeta.getPosicionEnLista();
                             } 
                         }
                         
@@ -366,7 +364,7 @@ public class MotorJuego   {
   
             private void botonMedirDistanciasMouseClicked(MouseEvent evt) {
                 if(planetas_a_Medir==2){
-                    JOptionPane.showMessageDialog(null, "La diastancia entre el planeta:  al Planeta:  es de1 Años luz",
+                    JOptionPane.showMessageDialog(null, "La diastancia entre el planeta:  al Planeta:  es de 1 Años luz",
                             "Distancia entre Planetas", JOptionPane.INFORMATION_MESSAGE);
                     
                 }else{
@@ -376,13 +374,14 @@ public class MotorJuego   {
             }
         });
     } 
-    
+  //_________________________________________________________________    
+  
     
     public void asignarNOmbreJugador(int i, Planeta planeta){
         crearNOmbresAletoriosPlaneta();
         try {
             planeta.setTextoNombre(nombresAleatorios[i]);
-            planeta.setCantidadNavesLabel("5");
+            planeta.setCantidadNaves(5);
             planeta.setProduccion(5);
             planeta.setPorcentajeMuertes(0.4);
             

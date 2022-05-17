@@ -14,7 +14,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
     
     private AccionesConfiguraciones añadir;
 
-    JTextArea popupPrincipal;
+//    JTextArea popupPrincipal;
     public VentanaPrincipal() {
         
         initComponents();
@@ -26,20 +26,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         ScrollPaneAreaMensajes.setVisible(false);
         
         añadirAcciones();
-        popupPrincipal = new JTextArea();
-        panelMapa.add(popupPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 300, 125));
-        panelMapa.setBorder(new LineBorder(Color.green));
-        panelMapa.setFont(new java.awt.Font("Segoe UI", 1, 20));
-        popupPrincipal.setText(String.format("NOmbre Planeta: \nDueño: \nCantidad Naves: \nProduccion: \nPorcentaje de Muertes: "));
-        popupPrincipal.setEditable(false);
-        popupPrincipal.setVisible(false);
-        panelMapa.doLayout();
-        int d = panelMapa.getLocation().x;
-        int e = panelMapa.getLocation().y;
-        System.out.println("location x" +d);
-        System.out.println("location y" +e);
         
-        popupPrincipal.doLayout();
         
     }
 
@@ -212,12 +199,11 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
                     .addComponent(tituloTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addGroup(panelTurnoJugadorLayout.createSequentialGroup()
                         .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(botonPlanetaOrigen)
-                                .addComponent(planetaOseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(botonPlanetaDestino)
-                                .addComponent(planetaDseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(planetaOseleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonPlanetaOrigen)
+                            .addGroup(panelTurnoJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(botonPlanetaDestino, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(planetaDseleccionado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -315,9 +301,7 @@ public class VentanaPrincipal extends javax.swing.JFrame  {
         return ScrollPaneAreaMensajes;
     }
 
-    public JTextArea getPopupPrincipal() {
-        return popupPrincipal;
-    }
+  
 
     public JButton getBotonMedirDistancias() {
         return botonMedirDistancias;

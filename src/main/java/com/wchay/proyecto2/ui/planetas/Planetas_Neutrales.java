@@ -12,6 +12,9 @@ public class Planetas_Neutrales extends Planeta{
     public Planetas_Neutrales() {
         setTipoPlaneta("0.png");
         setColorFondo(Color.WHITE);
+        setProduccion(5);
+        setCantidadNaves(5);
+        setPorcentajeMuertes(0.4);
 //        setTextoNombre("EEE");
 
     }

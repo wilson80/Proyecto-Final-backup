@@ -3,6 +3,7 @@ package com.wchay.proyecto2.backend.Jugadores;
 
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaEnlazada;
 import com.wchay.proyecto2.backend.listas_enlazadas.ListaException;
+import com.wchay.proyecto2.ui.planetas.Planeta;
 import com.wchay.proyecto2.ui.planetas.Planeta_jugador;
 import java.awt.Color;
 import java.io.Serializable;
@@ -44,6 +45,7 @@ public class CrearJugadoress implements Serializable{
             jugador.setNumeroJugador(contador);
             setColorJugador_Y_Tipo(jugador);
             darPlanetaJugador(jugador);
+            
             establecerImagenPlanetasJugador(jugador, 1);
             jugadoresSeleccionados.agregar(jugador);
             
@@ -127,6 +129,8 @@ public class CrearJugadoress implements Serializable{
         Planeta_jugador planeta = new Planeta_jugador();
         planeta.setColorFondo(jugador.getColorJugador());
         jugador.getPlanetas_de_Jugador().agregar(planeta);
+        setNOmbrePlaneta(planeta);
+        
     }
     
     public void establecerImagenPlanetasJugador(Jugador jugador, int planetasJugador) {
@@ -138,6 +142,36 @@ public class CrearJugadoress implements Serializable{
             e.getMessage();
         }
         
+    }
+    
+    
+    public void setNOmbrePlaneta(Planeta planeta){
+        switch (contador) {
+            case 1:
+                planeta.setTextoNombre("BIN");
+                break;
+            case 2:
+                planeta.setTextoNombre("BAN");
+                break;
+            case 3:
+                planeta.setTextoNombre("BON");
+                break;
+            case 4:
+                planeta.setTextoNombre("BUM");
+                break;
+            case 5:
+                planeta.setTextoNombre("CAR");
+                break;
+            case 6:
+                planeta.setTextoNombre("MAR");
+                break;
+            case 7:
+                planeta.setTextoNombre("MOU");
+                break;
+            case 8:
+                planeta.setTextoNombre("SIL");
+                break;
+        }
     }
         
         
